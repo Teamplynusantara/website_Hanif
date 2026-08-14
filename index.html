@@ -6,6 +6,7 @@
   <title>Hanif Imam Muttaqin — Graphic Designer & Digital Illustrator</title>
   
   <!-- Tailwind CSS via CDN -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
   <script src="https://cdn.tailwindcss.com"></script>
   
   <!-- Google Fonts: Inter -->
@@ -48,6 +49,23 @@
   <style>
     *{
       cursor: default;
+    }
+
+    /* Performance helpers: render below-the-fold sections only when needed. */
+    .perf-section {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 800px;
+    }
+
+    /* Keep the marquee smooth, but allow JS to stop it when it is off-screen. */
+    .marquee-paused {
+      animation-play-state: paused !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-marquee {
+        animation: none !important;
+      }
     }
   </style>
 </head>
@@ -132,7 +150,7 @@
           playsinline
           preload="none"
           class="w-full h-auto max-h-[420px] rounded-2xl object-cover"
-         loading="lazy">
+         loading="lazy" decoding="async" fetchpriority="low">
           <source data-src="assets/Sasuke2.mp4" type="video/mp4">
         </video>
 
@@ -140,7 +158,7 @@
               <div class="absolute top-1 right-1 bg-purple-600 text-white text-[7px] font-bold px-1.5 py-0.5 rounded-full z-20 animate-pulse group-hover:animate-none">LIVE</div>
               <img src="assets/thumbnails/profil.webp" 
                    class="w-full h-full object-cover rounded-full shadow-inner" 
-                   alt="My Profile" loading="lazy">
+                   alt="My Profile" decoding="async" fetchpriority="high">
             </div>
 
           </div>
@@ -150,7 +168,7 @@
     </section>
 
     <!-- ABOUT ME & METHODOLOGY SECTION -->
-    <section id="about" class="py-20 border-t border-purple-900/30 bg-slate-950 relative z-10">
+    <section id="about" class="perf-section py-20 border-t border-purple-900/30 bg-slate-950 relative z-10">
       <div class="max-w-6xl mx-auto px-6">
 
         <!-- Section Heading -->
@@ -417,7 +435,7 @@
     </section>
 
     <!-- PORTFOLIO SECTION -->
-    <section id="portfolio" class="py-20 bg-slate-950 relative z-10">
+    <section id="portfolio" class="perf-section py-20 bg-slate-950 relative z-10">
       
       <!-- CAROUSEL 10 PROJECT BERGERAK (INFINITE MARQUEE) -->
       <div class="mt-14 pt-8 border-y border-purple-900/30 relative pb-14 mb-14 ">
@@ -430,50 +448,50 @@
         <div class="relative w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-20 before:bg-gradient-to-r before:from-slate-950 before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-20 after:bg-gradient-to-l after:from-slate-950 after:to-transparent">
           
           <!-- Track Animasi: gap konsisten di kedua set agar tidak ada jeda/tumpang tindih di titik sambungan -->
-          <div class="flex w-[200%] animate-marquee hover:[animation-play-state:paused]">
+          <div id="portfolioMarquee" class="flex w-[200%] animate-marquee hover:[animation-play-state:paused]">
             
             <!-- Set 1: 10 Gambar Proyek -->
             <div class="flex w-1/2 gap-4 px-2">
               
               <div onclick="openModal('Goku Energy Burst', 'Digital Illustration', 'assets/Super-Saiyan-Blue-Goku-kamehameha.webp', 'Ilustrasi Goku dalam pose aksi saat mengeluarkan energi dengan kekuatan penuh. Perpaduan warna biru, putih, dan oranye memberikan kontras yang kuat, sementara efek cahaya dan garis dinamis digunakan untuk memperkuat kesan energi dan gerakan pada karakter.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Goku Energy Burst" loading="lazy">
+                <img src="assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Goku Energy Burst" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
               <div onclick="openModal('Oguri Cap Cloud', 'Digital Illustration', 'assets/Oguri-Cup-background-cloud-clip.webp', 'Ilustrasi Oguri Cap dengan latar langit yang dipenuhi awan dan nuansa warna biru. Komposisi karakter dibuat menyatu dengan suasana langit, sementara pencahayaan lembut digunakan untuk memberikan kesan tenang, cerah, dan sedikit dreamy.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/Oguri-Cup-background-cloud-clip.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Oguri Cap Cloud" loading="lazy">
+                <img src="assets/thumbnails/Oguri-Cup-background-cloud-clip.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Oguri Cap Cloud" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
               <div onclick="openModal('Hatsune Miku Beach', 'Digital Illustration', 'assets/Miku-Hatsune-Beach.webp', 'Ilustrasi Hatsune Miku dengan konsep suasana pantai dan nuansa musim panas. Dominasi warna biru pada langit dan laut dipadukan dengan karakter untuk menciptakan suasana yang cerah, santai, dan menyegarkan, dengan fokus utama tetap pada ekspresi dan visual karakter.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/Miku-Hatsune-Beach.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Hatsune Miku Beach" loading="lazy">
+                <img src="assets/thumbnails/Miku-Hatsune-Beach.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Hatsune Miku Beach" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
               <div onclick="openModal('Super Saiyan Goku', 'Digital Illustration', 'assets/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp', 'Ilustrasi Goku dalam bentuk Super Saiyan dengan pose yang menunjukkan kekuatan dan energi. Penggunaan warna cerah, kontras yang kuat, serta efek cahaya membantu menonjolkan karakter dan menciptakan suasana aksi yang lebih dramatis dan penuh tenaga.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Super Saiyan Goku" loading="lazy">
+                <img src="assets/thumbnails/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Super Saiyan Goku" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
               <div onclick="openModal('Citlali Genshin Impace', 'Digital Illustration',  'assets/Final-Citali-Genshin-impact.webp', 'Ilustrasi Citlali dengan nuansa ungu dan atmosfer fantasi yang menjadi fokus utama karya. Detail pada karakter, pewarnaan, serta pencahayaan dikembangkan untuk memberikan tampilan yang lebih hidup sekaligus mempertahankan kesan magis dan elegan pada ilustrasi.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/Final-Citali-Genshin-impact.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Citlali Genshin Impace" loading="lazy">
+                <img src="assets/thumbnails/Final-Citali-Genshin-impact.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Citlali Genshin Impace" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
               <div onclick="openModal('Frieren Blue Moon', 'Digital Illustration', 'assets/Anime-frieren.webp', 'Ilustrasi Frieren dalam suasana malam dengan dominasi warna biru dan cahaya bulan. Perpaduan karakter, pepohonan, dan pencahayaan dingin menciptakan atmosfer yang tenang dan misterius, sekaligus memberikan kesan magis pada lingkungan di sekitar karakter.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/Anime-frieren.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Frieren Blue Moon" loading="lazy">
+                <img src="assets/thumbnails/Anime-frieren.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Frieren Blue Moon" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
               <div onclick="openModal('Oguri Cap Run', 'Digital Illustration', 'assets/Umamusume-Oguri.Cap-hasil-jpg.webp', 'Ilustrasi Oguri Cap dalam adegan berlari yang menonjolkan gerakan dan energi karakter. Pose tubuh, komposisi, serta efek visual dibuat untuk memberikan kesan kecepatan dan dinamika, sehingga karakter terlihat seperti sedang bergerak aktif di dalam sebuah adegan.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/Umamusume-Oguri.Cap-hasil-jpg.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Oguri Cap Run" loading="lazy">
+                <img src="assets/thumbnails/Umamusume-Oguri.Cap-hasil-jpg.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Oguri Cap Run" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
@@ -488,7 +506,7 @@
   <img src="https://drive.google.com/uc?export=view&id=1k80foHKsQ5AqRKSvUfrBCBEe6hVWnzX1" 
        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
        alt="Goku Energy Burst" 
-       loading="lazy">
+       loading="lazy" decoding="async" fetchpriority="low">
   
   <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">
     Detail
@@ -497,37 +515,37 @@
 
               <div onclick="openModal('Oguri Cap Cloud', 'Digital Illustration', 'assets/Oguri-Cup-background-cloud-clip.webp', 'Ilustrasi Oguri Cap dengan latar langit yang dipenuhi awan dan nuansa warna biru. Komposisi karakter dibuat menyatu dengan suasana langit, sementara pencahayaan lembut digunakan untuk memberikan kesan tenang, cerah, dan sedikit dreamy.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/Oguri-Cup-background-cloud-clip.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Oguri Cap Cloud" loading="lazy">
+                <img src="assets/thumbnails/Oguri-Cup-background-cloud-clip.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Oguri Cap Cloud" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
               <div onclick="openModal('Hatsune Miku Beach', 'Digital Illustration', 'assets/Miku-Hatsune-Beach.webp', 'Ilustrasi Hatsune Miku dengan konsep suasana pantai dan nuansa musim panas. Dominasi warna biru pada langit dan laut dipadukan dengan karakter untuk menciptakan suasana yang cerah, santai, dan menyegarkan, dengan fokus utama tetap pada ekspresi dan visual karakter.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/Miku-Hatsune-Beach.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Hatsune Miku Beach" loading="lazy">
+                <img src="assets/thumbnails/Miku-Hatsune-Beach.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Hatsune Miku Beach" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
               <div onclick="openModal('Super Saiyan Goku', 'Digital Illustration', 'assets/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp', 'Ilustrasi Goku dalam bentuk Super Saiyan dengan pose yang menunjukkan kekuatan dan energi. Penggunaan warna cerah, kontras yang kuat, serta efek cahaya membantu menonjolkan karakter dan menciptakan suasana aksi yang lebih dramatis dan penuh tenaga.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Super Saiyan Goku" loading="lazy">
+                <img src="assets/thumbnails/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Super Saiyan Goku" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
               <div onclick="openModal('Citlali Genshin Impace', 'Digital Illustration',  'assets/Final-Citali-Genshin-impact.webp', 'Ilustrasi Citlali dengan nuansa ungu dan atmosfer fantasi yang menjadi fokus utama karya. Detail pada karakter, pewarnaan, serta pencahayaan dikembangkan untuk memberikan tampilan yang lebih hidup sekaligus mempertahankan kesan magis dan elegan pada ilustrasi.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/Final-Citali-Genshin-impact.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Citlali Genshin Impace" loading="lazy">
+                <img src="assets/thumbnails/Final-Citali-Genshin-impact.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Citlali Genshin Impace" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
               <div onclick="openModal('Frieren Blue Moon', 'Digital Illustration', 'assets/Anime-frieren.webp', 'Ilustrasi Frieren dalam suasana malam dengan dominasi warna biru dan cahaya bulan. Perpaduan karakter, pepohonan, dan pencahayaan dingin menciptakan atmosfer yang tenang dan misterius, sekaligus memberikan kesan magis pada lingkungan di sekitar karakter.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/Anime-frieren.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Frieren Blue Moon" loading="lazy">
+                <img src="assets/thumbnails/Anime-frieren.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Frieren Blue Moon" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
               <div onclick="openModal('Oguri Cap Run', 'Digital Illustration', 'assets/Umamusume-Oguri.Cap-hasil-jpg.webp', 'Ilustrasi Oguri Cap dalam adegan berlari yang menonjolkan gerakan dan energi karakter. Pose tubuh, komposisi, serta efek visual dibuat untuk memberikan kesan kecepatan dan dinamika, sehingga karakter terlihat seperti sedang bergerak aktif di dalam sebuah adegan.')" 
                    class="group relative w-48 h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-800 flex-shrink-0 cursor-pointer hover:shadow-md hover:border-purple-500/50 transition-all">
-                <img src="assets/thumbnails/Umamusume-Oguri.Cap-hasil-jpg.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Oguri Cap Run" loading="lazy">
+                <img src="assets/thumbnails/Umamusume-Oguri.Cap-hasil-jpg.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Oguri Cap Run" loading="lazy" decoding="async" fetchpriority="low">
                 <div class="absolute inset-0 bg-purple-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">Detail</div>
               </div>
 
@@ -590,7 +608,7 @@
     </section>
 
     <!-- GIF BESAR DI TENGAH, TEPAT DI BAWAH PROJECT -->
-    <section id="showcase" class="py-24 bg-gradient-to-b from-slate-950 via-purple-950/30 to-slate-950 border-t border-purple-900/30 relative z-10 overflow-hidden">
+    <section id="showcase" class="perf-section py-24 bg-gradient-to-b from-slate-950 via-purple-950/30 to-slate-950 border-t border-purple-900/30 relative z-10 overflow-hidden">
       <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
         <h2 class="text-xs font-bold text-purple-300 uppercase tracking-widest mb-2">Speed Paint</h2>
         <h3 class="text-3xl font-extrabold text-white sm:text-4xl mb-10">Lihat Proses Secara Langsung</h3>
@@ -610,7 +628,7 @@
     </section>
 
     <!-- PERKIRAAN WAKTU & ESTIMASI PENGERJAAN -->
-    <section id="pricing" class="py-20 bg-slate-950 border-t border-purple-900/30 relative z-10">
+    <section id="pricing" class="perf-section py-20 bg-slate-950 border-t border-purple-900/30 relative z-10">
       <div class="max-w-6xl mx-auto px-6 relative z-10">
         <div class="text-center max-w-2xl mx-auto mb-12 relative z-10">
           <h2 class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 relative z-10">Layanan</h2>
@@ -661,7 +679,7 @@
     </section>
 
     <!-- CONTACT & FOLLOW ME SECTION -->
-    <section id="contact" class="py-20 bg-slate-950 border-t border-purple-900/30 relative z-10">
+    <section id="contact" class="perf-section py-20 bg-slate-950 border-t border-purple-900/30 relative z-10">
       <div class="max-w-4xl mx-auto px-6 relative z-10">
         <div class="bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-950 border border-purple-900/40 rounded-3xl p-8 sm:p-12 text-white text-center shadow-2xl relative overflow-hidden z-10">
           <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-purple-500/10 rounded-full blur-2xl z-0"></div>
@@ -733,7 +751,7 @@
       <!-- Modal Body -->
       <div class="p-6 max-h-[75vh] overflow-y-auto space-y-4 relative z-10">
         <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center min-h-[300px] max-h-[70vh] relative">
-          <img id="modalImg" src="" alt="Project Display" class="max-w-full max-h-[70vh] w-auto h-auto object-contain block group-hover:scale-105 transition-transform duration-500 relative z-0" loading="lazy">
+          <img id="modalImg" src="" alt="Project Display" class="max-w-full max-h-[70vh] w-auto h-auto object-contain block group-hover:scale-105 transition-transform duration-500 relative z-0" loading="lazy" decoding="async" fetchpriority="low">
         </div>
 
         <div class="flex flex-wrap items-center gap-3 relative z-10">
@@ -822,23 +840,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const lazyVideos = document.querySelectorAll("video[loading='lazy']");
 
-  if (!("IntersectionObserver" in window)) {
-    lazyVideos.forEach(loadLazyVideo);
-    return;
-  }
-
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      loadLazyVideo(entry.target);
-      obs.unobserve(entry.target);
-    });
-  }, {
-    rootMargin: "300px 0px"
-  });
-
-  lazyVideos.forEach(video => observer.observe(video));
-
   function loadLazyVideo(video) {
     if (video.dataset.lazyLoaded === "true") return;
 
@@ -855,11 +856,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
     video.dataset.lazyLoaded = "true";
     video.load();
+  }
 
-    if (video.hasAttribute("autoplay")) {
-      const playPromise = video.play();
-      if (playPromise) playPromise.catch(() => {});
-    }
+  function playIfNeeded(video) {
+    if (!video.hasAttribute("autoplay")) return;
+    const promise = video.play();
+    if (promise) promise.catch(() => {});
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    lazyVideos.forEach(video => {
+      loadLazyVideo(video);
+      playIfNeeded(video);
+    });
+  } else {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        const video = entry.target;
+
+        if (entry.isIntersecting) {
+          loadLazyVideo(video);
+          playIfNeeded(video);
+          return;
+        }
+
+        // Stop decoding/rendering off-screen autoplay videos.
+        if (video.dataset.lazyLoaded === "true" && !video.paused) {
+          video.pause();
+        }
+      });
+    }, {
+      rootMargin: "100px 0px",
+      threshold: 0.01
+    });
+
+    lazyVideos.forEach(video => observer.observe(video));
+  }
+
+  // Pause the infinite marquee while it is outside the viewport.
+  const marquee = document.getElementById("portfolioMarquee");
+  if (marquee && "IntersectionObserver" in window) {
+    const marqueeObserver = new IntersectionObserver(([entry]) => {
+      marquee.classList.toggle("marquee-paused", !entry.isIntersecting);
+    }, { threshold: 0.01 });
+
+    marqueeObserver.observe(marquee);
   }
 });
 </script>
