@@ -66,11 +66,6 @@
       gap: 1rem;
       padding: 0 0.5rem;
       will-change: transform;
-      cursor: grab;
-      touch-action: pan-y;
-    }
-    .marquee-track.dragging {
-      cursor: grabbing;
     }
     .marquee-card {
       position: relative;
@@ -81,6 +76,7 @@
       overflow: hidden;
       border: 1px solid rgba(30, 41, 59, 0.9);
       box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      cursor: pointer;
       transition: border-color .2s ease, box-shadow .2s ease;
     }
     .marquee-card:hover {
@@ -547,7 +543,7 @@
       <div class="mt-10 sm:mt-14 pt-8 border-y border-purple-900/30 relative pb-14 mb-14">
         <div class="text-center mb-6 px-4">
           <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white text-center">Karya Ilustrasi</h3>
-          <span class="text-xs font-bold uppercase tracking-widest text-slate-500">Proyek Ilustrasi (Geser atau Klik Gambar Untuk Detail)</span>
+          <span class="text-xs font-bold uppercase tracking-widest text-slate-500">Proyek Ilustrasi (Klik Gambar Untuk Detail)</span>
         </div>
 
         <!-- Mask Gradient Kiri Kanan -->
@@ -784,50 +780,71 @@
         title: 'Goku Energy Burst',
         category: 'Digital Illustration',
         thumb: 'assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.webp',
-        full: 'assets/Super-Saiyan-Blue-Goku-kamehameha.webp',
+        full: 'assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.webp',
         desc: 'Ilustrasi Goku dalam pose aksi saat mengeluarkan energi dengan kekuatan penuh. Perpaduan warna biru, putih, dan oranye memberikan kontras yang kuat, sementara efek cahaya dan garis dinamis digunakan untuk memperkuat kesan energi dan gerakan pada karakter.'
       },
       {
         title: 'Oguri Cap Cloud',
         category: 'Digital Illustration',
         thumb: 'assets/thumbnails/Oguri-Cup-background-cloud-clip.webp',
-        full: 'assets/Oguri-Cup-background-cloud-clip.webp',
+        full: 'assets/thumbnails/Oguri-Cup-background-cloud-clip.webp',
         desc: 'Ilustrasi Oguri Cap dengan latar langit yang dipenuhi awan dan nuansa warna biru. Komposisi karakter dibuat menyatu dengan suasana langit, sementara pencahayaan lembut digunakan untuk memberikan kesan tenang, cerah, dan sedikit dreamy.'
       },
       {
         title: 'Hatsune Miku Beach',
         category: 'Digital Illustration',
         thumb: 'assets/thumbnails/Miku-Hatsune-Beach.webp',
-        full: 'assets/Miku-Hatsune-Beach.webp',
+        full: 'assets/thumbnails/Miku-Hatsune-Beach.webp',
         desc: 'Ilustrasi Hatsune Miku dengan konsep suasana pantai dan nuansa musim panas. Dominasi warna biru pada langit dan laut dipadukan dengan karakter untuk menciptakan suasana yang cerah, santai, dan menyegarkan, dengan fokus utama tetap pada ekspresi dan visual karakter.'
       },
       {
         title: 'Super Saiyan Goku',
         category: 'Digital Illustration',
         thumb: 'assets/thumbnails/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp',
-        full: 'assets/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp',
+        full: 'assets/thumbnails/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp',
         desc: 'Ilustrasi Goku dalam bentuk Super Saiyan dengan pose yang menunjukkan kekuatan dan energi. Penggunaan warna cerah, kontras yang kuat, serta efek cahaya membantu menonjolkan karakter dan menciptakan suasana aksi yang lebih dramatis dan penuh tenaga.'
       },
       {
         title: 'Citlali Genshin Impace',
         category: 'Digital Illustration',
         thumb: 'assets/thumbnails/Final-Citali-Genshin-impact.webp',
-        full: 'assets/Final-Citali-Genshin-impact.webp',
+        full: 'assets/thumbnails/Final-Citali-Genshin-impact.webp',
         desc: 'Ilustrasi Citlali dengan nuansa ungu dan atmosfer fantasi yang menjadi fokus utama karya. Detail pada karakter, pewarnaan, serta pencahayaan dikembangkan untuk memberikan tampilan yang lebih hidup sekaligus mempertahankan kesan magis dan elegan pada ilustrasi.'
       },
       {
         title: 'Frieren Blue Moon',
         category: 'Digital Illustration',
         thumb: 'assets/thumbnails/Anime-frieren.webp',
-        full: 'assets/Anime-frieren.webp',
+        full: 'assets/thumbnails/Anime-frieren.webp',
         desc: 'Ilustrasi Frieren dalam suasana malam dengan dominasi warna biru dan cahaya bulan. Perpaduan karakter, pepohonan, dan pencahayaan dingin menciptakan atmosfer yang tenang dan misterius, sekaligus memberikan kesan magis pada lingkungan di sekitar karakter.'
       },
       {
         title: 'Oguri Cap Run',
         category: 'Digital Illustration',
         thumb: 'assets/thumbnails/Umamusume-Oguri.Cap-hasil-jpg.webp',
-        full: 'assets/Umamusume-Oguri.Cap-hasil-jpg.webp',
+        full: 'assets/thumbnails/Umamusume-Oguri.Cap-hasil-jpg.webp',
         desc: 'Ilustrasi Oguri Cap dalam adegan berlari yang menonjolkan gerakan dan energi karakter. Pose tubuh, komposisi, serta efek visual dibuat untuk memberikan kesan kecepatan dan dinamika, sehingga karakter terlihat seperti sedang bergerak aktif di dalam sebuah adegan.'
+      },
+      {
+        title: 'Super Saiyan Goku Universe 7',
+        category: 'Digital Illustration',
+        thumb: 'assets/thumbnails/Super-saiyan-Son-goku-(medibang paint).webp',
+        full: 'assets/thumbnails/Super-saiyan-Son-goku-(medibang paint).webp',
+        desc: 'Ilustrasi Super Saiyan Goku dengan pose penuh energi saat mempersiapkan serangan. Efek cahaya biru pada energi di tangannya dipadukan dengan latar luar angkasa bernuansa ungu untuk menciptakan suasana dramatis dan memperkuat kesan kekuatan karakter.'
+      },
+      {
+        title: 'Gojo Satoru Hollow Purple',
+        category: 'Digital Illustration',
+        thumb: 'assets/thumbnails/Gojo-Satoru-Hollow-Purple.webp',
+        full: 'assets/thumbnails/Gojo-Satoru-Hollow-Purple.webp',
+        desc: 'Ilustrasi Gojo Satoru dengan teknik Hollow Purple yang menjadi fokus utama karya. Dominasi warna ungu, efek energi yang terang, serta pencahayaan pada karakter digunakan untuk menciptakan suasana intens dan menonjolkan kekuatan visual dari adegan.'
+      },
+      {
+        title: 'Solo Leveling',
+        category: 'Digital Illustration',
+        thumb: 'assets/thumbnails/Solo-leveling-2.webp',
+        full: 'assets/thumbnails/Solo-leveling-2.webp',
+        desc: 'Ilustrasi karakter dari Solo Leveling dengan suasana gelap dan dramatis. Perpaduan warna hitam, abu-abu, biru, dan merah digunakan untuk menciptakan kontras yang kuat, sementara efek cahaya dan pecahan elemen di sekitar karakter memberikan kesan aksi dan ketegangan.'
       }
     ];
 
@@ -842,6 +859,7 @@
       img.decoding = 'async';
       img.fetchPriority = 'low';
       img.draggable = false;
+      img.onerror = function() { this.style.display = 'none'; };
 
       const overlay = document.createElement('div');
       overlay.className = 'marquee-overlay';
@@ -858,20 +876,17 @@
     // Marquee engine: renders the project list twice back-to-back
     // (so the loop never shows a seam), then drives it with
     // requestAnimationFrame for a consistently smooth scroll speed
-    // regardless of frame rate, and supports mouse/touch dragging.
+    // regardless of frame rate. No drag/swipe — clicking a card always
+    // opens its detail directly.
     // ---------------------------------------------------------------
     let marqueeOffset = 0;
     let marqueeTrackWidth = 0;
-    let marqueeDragging = false;
     let marqueeHovered = false;
     let marqueeOffscreen = false;
-    let marqueeDragStartX = 0;
-    let marqueeDragStartOffset = 0;
-    let marqueeDragDistance = 0;
-    let marqueeSuppressClick = false;
-    let marqueeResumeAt = 0;
     let marqueeLastTime = null;
-    const MARQUEE_SPEED = 42; // pixels per second
+    let marqueeVelocity = 0; // current smooth velocity
+    const MARQUEE_SPEED = 42; // pixels per second (target)
+    const MARQUEE_SMOOTH = 3.5; // easing factor (higher = snappier)
 
     function renderMarquee() {
       const track = document.getElementById('portfolioMarquee');
@@ -902,13 +917,23 @@
 
     function marqueeTick(time) {
       if (marqueeLastTime === null) marqueeLastTime = time;
-      const dt = (time - marqueeLastTime) / 1000;
+      let dt = (time - marqueeLastTime) / 1000;
       marqueeLastTime = time;
 
-      const shouldAutoplay = !marqueeDragging && !marqueeHovered && !marqueeOffscreen && !document.body.classList.contains('sidebar-open') && time > marqueeResumeAt;
+      // Cap delta to prevent huge jumps (e.g. after tab switch or GC)
+      if (dt > 0.1) dt = 0.1;
 
-      if (shouldAutoplay && marqueeTrackWidth > 0) {
-        marqueeOffset -= MARQUEE_SPEED * dt;
+      const shouldAutoplay = !marqueeHovered && !marqueeOffscreen && !document.body.classList.contains('sidebar-open');
+
+      if (marqueeTrackWidth > 0) {
+        // Smooth velocity via lerp toward target
+        const targetVelocity = shouldAutoplay ? MARQUEE_SPEED : 0;
+        marqueeVelocity += (targetVelocity - marqueeVelocity) * (1 - Math.exp(-MARQUEE_SMOOTH * dt * 60));
+
+        // Snap to zero when very close to avoid endless crawl
+        if (Math.abs(marqueeVelocity) < 0.05 && !shouldAutoplay) marqueeVelocity = 0;
+
+        marqueeOffset -= marqueeVelocity * dt;
         wrapMarqueeOffset();
         applyMarqueeTransform();
       }
@@ -916,56 +941,9 @@
       requestAnimationFrame(marqueeTick);
     }
 
-    function setupMarqueeDrag() {
+    function setupMarqueeHoverPause() {
       const track = document.getElementById('portfolioMarquee');
       if (!track) return;
-
-      function pointerDown(e) {
-        marqueeDragging = true;
-        marqueeDragDistance = 0;
-        marqueeDragStartX = e.clientX;
-        marqueeDragStartOffset = marqueeOffset;
-        track.classList.add('dragging');
-        if (track.setPointerCapture && e.pointerId !== undefined) {
-          try { track.setPointerCapture(e.pointerId); } catch (err) {}
-        }
-      }
-
-      function pointerMove(e) {
-        if (!marqueeDragging) return;
-        const dx = e.clientX - marqueeDragStartX;
-        marqueeDragDistance = Math.abs(dx);
-        marqueeOffset = marqueeDragStartOffset + dx;
-        wrapMarqueeOffset();
-        applyMarqueeTransform();
-      }
-
-      function pointerUp(e) {
-        if (!marqueeDragging) return;
-        marqueeDragging = false;
-        track.classList.remove('dragging');
-        if (marqueeDragDistance > 5) {
-          marqueeSuppressClick = true;
-        }
-        marqueeResumeAt = performance.now() + 700;
-      }
-
-      track.addEventListener('pointerdown', pointerDown);
-      track.addEventListener('pointermove', pointerMove);
-      track.addEventListener('pointerup', pointerUp);
-      track.addEventListener('pointercancel', pointerUp);
-      track.addEventListener('pointerleave', (e) => { if (marqueeDragging) pointerUp(e); });
-
-      // Suppress the click-to-open-modal that would otherwise fire right after a drag.
-      track.addEventListener('click', function (e) {
-        if (marqueeSuppressClick) {
-          e.stopPropagation();
-          e.preventDefault();
-          marqueeSuppressClick = false;
-        }
-      }, true);
-
-      // Pause autoplay on hover (desktop) without affecting touch dragging.
       track.addEventListener('mouseenter', () => { marqueeHovered = true; });
       track.addEventListener('mouseleave', () => { marqueeHovered = false; });
     }
@@ -1067,7 +1045,7 @@
     // ---------------------------------------------------------------
     document.addEventListener('DOMContentLoaded', () => {
       renderMarquee();
-      setupMarqueeDrag();
+      setupMarqueeHoverPause();
       requestAnimationFrame(marqueeTick);
 
       // Thumbnails may still shift layout slightly as they finish decoding —
@@ -1135,8 +1113,7 @@
         lazyVideos.forEach(video => observer.observe(video));
       }
 
-      // Pause the infinite marquee's autoplay while it is outside the viewport
-      // (dragging still works if the user scrolls back to it and interacts).
+      // Pause the infinite marquee's autoplay while it is outside the viewport.
       if (marqueeTrackEl && 'IntersectionObserver' in window) {
         const marqueeObserver = new IntersectionObserver(([entry]) => {
           marqueeOffscreen = !entry.isIntersecting;
