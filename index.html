@@ -625,28 +625,29 @@
 
   <!-- PROJECT DETAIL MODAL -->
   <div id="projectModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-3 sm:p-5">
-    <div class="bg-slate-900 border border-purple-900/40 rounded-3xl w-full max-w-6xl max-h-[92vh] overflow-hidden shadow-2xl flex flex-col">
+  <!-- Width diperkecil ke max-w-3xl, Height dipertinggi ke h-[85vh] -->
+  <div class="bg-slate-900 border border-purple-900/40 rounded-3xl w-full max-w-3xl h-[85vh] overflow-hidden shadow-2xl flex flex-col">
 
-      <div class="px-5 sm:px-8 py-4 sm:py-5 border-b border-slate-800 flex items-center justify-between flex-shrink-0">
-        <h3 id="modalTitle" class="text-lg sm:text-2xl font-bold text-white">Judul Proyek</h3>
-        <button onclick="closeModal()" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center hover:bg-slate-700 hover:text-white transition-colors flex-shrink-0">&times;</button>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-[1.55fr_0.85fr] min-h-0 flex-1 overflow-y-auto">
-        <div class="min-h-[320px] md:min-h-0 p-4 sm:p-6 md:p-8 flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-800">
-          <div id="modalImageStage" class="w-full h-full min-h-[300px] md:min-h-[60vh] flex items-center justify-center overflow-hidden">
-            <img id="modalImg" src="" alt="Project Display" class="project-detail-image" loading="lazy" decoding="async">
-          </div>
-        </div>
-
-        <div class="p-5 sm:p-7 md:p-8 flex flex-col justify-center">
-          <span id="modalCategory" class="self-start text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-purple-300 bg-purple-500/10 px-3 py-1.5 rounded-md mb-5">Kategori</span>
-          <p id="modalDescription" class="text-sm sm:text-base md:text-lg text-slate-300 leading-7 md:leading-8">Deskripsi detail proyek.</p>
-        </div>
-      </div>
-
+    <div class="px-5 sm:px-8 py-4 sm:py-5 border-b border-slate-800 flex items-center justify-between flex-shrink-0">
+      <h3 id="modalTitle" class="text-lg sm:text-2xl font-bold text-white">Judul Proyek</h3>
+      <button onclick="closeModal()" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center hover:bg-slate-700 hover:text-white transition-colors flex-shrink-0">&times;</button>
     </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] min-h-0 flex-1 overflow-y-auto">
+      <div class="min-h-[250px] md:min-h-0 p-4 sm:p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-800">
+        <div id="modalImageStage" class="w-full h-full min-h-[200px] md:min-h-[70vh] flex items-center justify-center overflow-hidden">
+          <img id="modalImg" src="" alt="Project Display" class="project-detail-image" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <div class="p-5 sm:p-7 flex flex-col justify-center">
+        <span id="modalCategory" class="self-start text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-purple-300 bg-purple-500/10 px-3 py-1.5 rounded-md mb-5">Kategori</span>
+        <p id="modalDescription" class="text-sm sm:text-base text-slate-300 leading-7">Deskripsi detail proyek.</p>
+      </div>
+    </div>
+
   </div>
+</div>
 
   <script>
     // Data proyek - path disesuaikan dengan struktur folder aslinya:
@@ -656,16 +657,16 @@
     const THUMB_BASE = 'assets/thumbnails/';
 
     const projects = [
-      { title: 'Goku Energy Burst', category: 'Digital Illustration', thumb: THUMB_BASE + 'Super-Saiyan-Blue-Goku-kamehameha.webp', full: FULL_BASE + 'Super-Saiyan-Blue-Goku-kamehameha.jpg', desc: 'Ilustrasi Goku dalam pose aksi saat mengeluarkan energi dengan kekuatan penuh.' },
-      { title: 'Oguri Cap Cloud', category: 'Digital Illustration', thumb: THUMB_BASE + 'Oguri-Cup-background-cloud-clip.webp', full: FULL_BASE + 'Oguri Cup background cloud clip.jpg', desc: 'Ilustrasi Oguri Cap dengan latar langit yang dipenuhi awan dan nuansa warna biru.' },
-      { title: 'Hatsune Miku Beach', category: 'Digital Illustration', thumb: THUMB_BASE + 'Miku-Hatsune-Beach.webp', full: FULL_BASE + 'Miku Hatsune Beach.jpg', desc: 'Ilustrasi Hatsune Miku dengan konsep suasana pantai dan nuansa musim panas.' },
-      { title: 'Super Saiyan Goku', category: 'Digital Illustration', thumb: THUMB_BASE + 'fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp', full: FULL_BASE + 'fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).jpg', desc: 'Ilustrasi Goku dalam bentuk Super Saiyan dengan pose yang menunjukkan kekuatan.' },
-      { title: 'Citlali Genshin Impact', category: 'Digital Illustration', thumb: THUMB_BASE + 'Final-Citali-Genshin-impact.webp', full: FULL_BASE + 'Final-Citali-Genshin-impact.jpg', desc: 'Ilustrasi Citlali dengan nuansa ungu dan atmosfer fantasi.' },
-      { title: 'Frieren Blue Moon', category: 'Digital Illustration', thumb: THUMB_BASE + 'Anime-frieren.webp', full: FULL_BASE + 'Anime-frieren (1).jpg', desc: 'Ilustrasi Frieren dalam suasana malam dengan dominasi warna biru dan cahaya bulan.' },
-      { title: 'Oguri Cap Run', category: 'Digital Illustration', thumb: THUMB_BASE + 'Umamusume-Oguri.Cap-hasil-jpg.webp', full: FULL_BASE + 'Umamusume-Oguri.Cap-hasil-jpg.jpg', desc: 'Ilustrasi Oguri Cap dalam adegan berlari yang menonjolkan gerakan dan energi karakter.' },
-      { title: 'Super Saiyan Goku Universe 7', category: 'Digital Illustration', thumb: THUMB_BASE + 'Super-saiyan-Son-goku-(medibang paint).webp', full: FULL_BASE + 'Super-saiyan-Son-goku-(medibang paint).webp', desc: 'Ilustrasi Super Saiyan Goku dengan pose penuh energi saat mempersiapkan serangan.' },
-      { title: 'Gojo Satoru Hollow Purple', category: 'Digital Illustration', thumb: THUMB_BASE + 'Gojo-Satoru-Hollow-Purple.webp', full: FULL_BASE + 'Gojo-Satoru-Hollow-Purple.webp', desc: 'Ilustrasi Gojo Satoru dengan teknik Hollow Purple.' },
-      { title: 'Solo Leveling', category: 'Digital Illustration', thumb: THUMB_BASE + 'Solo-leveling-2.webp', full: FULL_BASE + 'Solo-leveling-2.webp', desc: 'Ilustrasi karakter dari Solo Leveling dengan suasana gelap dan dramatis.' }
+      { title: 'Goku Energy Burst', category: 'Digital Illustration', thumb: THUMB_BASE + 'Super-Saiyan-Blue-Goku-kamehameha.webp', full: FULL_BASE + 'Super-Saiyan-Blue-Goku-kamehameha.jpg', desc: 'Ilustrasi Goku dalam pose aksi saat mengeluarkan energi dengan kekuatan penuh. Perpaduan warna biru, putih, dan oranye memberikan kontras yang kuat, sementara efek cahaya dan garis dinamis digunakan untuk memperkuat kesan energi dan gerakan pada karakter.' },
+      { title: 'Oguri Cap Cloud', category: 'Digital Illustration', thumb: THUMB_BASE + 'Oguri-Cup-background-cloud-clip.webp', full: FULL_BASE + 'Oguri Cup background cloud clip.jpg', desc: 'Ilustrasi Oguri Cap dengan latar langit yang dipenuhi awan dan nuansa warna biru. Komposisi karakter dibuat menyatu dengan suasana langit, sementara pencahayaan lembut digunakan untuk memberikan kesan tenang, cerah, dan sedikit dreamy.' },
+      { title: 'Hatsune Miku Beach', category: 'Digital Illustration', thumb: THUMB_BASE + 'Miku-Hatsune-Beach.webp', full: FULL_BASE + 'Miku Hatsune Beach.jpg', desc: 'Ilustrasi Hatsune Miku dengan konsep suasana pantai dan nuansa musim panas. Dominasi warna biru pada langit dan laut dipadukan dengan karakter untuk menciptakan suasana yang cerah, santai, dan menyegarkan, dengan fokus utama tetap pada ekspresi dan visual karakter.' },
+      { title: 'Super Saiyan Goku', category: 'Digital Illustration', thumb: THUMB_BASE + 'fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp', full: FULL_BASE + 'fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).jpg', desc: 'Ilustrasi Goku dalam bentuk Super Saiyan dengan pose yang menunjukkan kekuatan dan energi. Penggunaan warna cerah, kontras yang kuat, serta efek cahaya membantu menonjolkan karakter dan menciptakan suasana aksi yang lebih dramatis dan penuh tenaga.' },
+      { title: 'Citlali Genshin Impact', category: 'Digital Illustration', thumb: THUMB_BASE + 'Final-Citali-Genshin-impact.webp', full: FULL_BASE + 'Final-Citali-Genshin-impact.jpg', desc: 'Ilustrasi Citlali dengan nuansa ungu dan atmosfer fantasi yang menjadi fokus utama karya. Detail pada karakter, pewarnaan, serta pencahayaan dikembangkan untuk memberikan tampilan yang lebih hidup sekaligus mempertahankan kesan magis dan elegan pada ilustrasi.' },
+      { title: 'Frieren Blue Moon', category: 'Digital Illustration', thumb: THUMB_BASE + 'Anime-frieren.webp', full: FULL_BASE + 'Anime-frieren (1).jpg', desc: 'Ilustrasi Frieren dalam suasana malam dengan dominasi warna biru dan cahaya bulan. Perpaduan karakter, pepohonan, dan pencahayaan dingin menciptakan atmosfer yang tenang dan misterius, sekaligus memberikan kesan magis pada lingkungan di sekitar karakter.' },
+      { title: 'Oguri Cap Run', category: 'Digital Illustration', thumb: THUMB_BASE + 'Umamusume-Oguri.Cap-hasil-jpg.webp', full: FULL_BASE + 'Umamusume-Oguri.Cap-hasil-jpg.jpg', desc: 'Ilustrasi Oguri Cap dalam adegan berlari yang menonjolkan gerakan dan energi karakter. Pose tubuh, komposisi, serta efek visual dibuat untuk memberikan kesan kecepatan dan dinamika, sehingga karakter terlihat seperti sedang bergerak aktif di dalam sebuah adegan.' },
+      { title: 'Super Saiyan Goku Universe 7', category: 'Digital Illustration', thumb: THUMB_BASE + 'Super-saiyan-Son-goku-(medibang paint).webp', full: FULL_BASE + 'Super-saiyan-Son-goku-(medibang paint).webp', desc: 'Ilustrasi Super Saiyan Goku dengan pose penuh energi saat mempersiapkan serangan. Efek cahaya biru pada energi di tangannya dipadukan dengan latar luar angkasa bernuansa ungu untuk menciptakan suasana dramatis dan memperkuat kesan kekuatan karakter.' },
+      { title: 'Gojo Satoru Hollow Purple', category: 'Digital Illustration', thumb: THUMB_BASE + 'Gojo-Satoru-Hollow-Purple.webp', full: FULL_BASE + 'Gojo-Satoru-Hollow-Purple.webp', desc: 'Ilustrasi Gojo Satoru dengan teknik Hollow Purple yang menjadi fokus utama karya. Dominasi warna ungu, efek energi yang terang, serta pencahayaan pada karakter digunakan untuk menciptakan suasana intens dan menonjolkan kekuatan visual dari adegan.' },
+      { title: 'Solo Leveling', category: 'Digital Illustration', thumb: THUMB_BASE + 'Solo-leveling-2.webp', full: FULL_BASE + 'Solo-leveling-2.webp', desc: 'Ilustrasi karakter dari Solo Leveling dengan suasana gelap dan dramatis. Perpaduan warna hitam, abu-abu, biru, dan merah digunakan untuk menciptakan kontras yang kuat, sementara efek cahaya dan pecahan elemen di sekitar karakter memberikan kesan aksi dan ketegangan.' }
     ];
 
     function buildMarqueeItem(p) {
