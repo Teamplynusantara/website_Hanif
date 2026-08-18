@@ -5,70 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hanif Imam Muttaqin — Graphic Designer & Digital Illustrator</title>
 
-  <!-- Tailwind CSS via CDN -->
-  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <!-- Tailwind CSS via CDN dengan versi yang lebih ringan -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google Fonts: Inter -->
+  <!-- Google Fonts: Inter (hanya weight yang dibutuhkan) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
           colors: {
             brand: {
-              50: '#eff6ff',
-              100: '#dbeaff',
-              200: '#bfdbfe',
-              500: '#3b82f6',
-              600: '#2563eb',
-              800: '#1e40af',
-              900: '#1e3a8a',
-              950: '#172554',
+              50: '#eff6ff', 100: '#dbeaff', 200: '#bfdbfe',
+              500: '#3b82f6', 600: '#2563eb', 800: '#1e40af',
+              900: '#1e3a8a', 950: '#172554',
             }
           },
         }
       }
     }
   </script>
-  <style>
-    *{
-      cursor: default;
-    }
 
-    /* Performance helpers: render below-the-fold sections only when needed. */
+  <style>
+    /* Reset & Base */
+    * { cursor: default; }
+    body.sidebar-open { overflow: hidden; }
+
+    /* Performance: below-the-fold sections */
     .perf-section {
       content-visibility: auto;
       contain-intrinsic-size: 1px 800px;
     }
 
-    /* Prevent background scroll when the mobile sidebar is open */
-    body.sidebar-open {
-      overflow: hidden;
-    }
-
-    /* -----------------------------------------------------------
-       Portfolio marquee: sizing is defined here in plain CSS
-       (not Tailwind utility classes) because classes assigned to
-       elements created dynamically via JS are not always picked
-       up in time by the Tailwind CDN's runtime scanner, which is
-       what made the cards render oversized/inconsistent. Plain
-       CSS always applies immediately and deterministically.
-    ----------------------------------------------------------- */
+    /* Marquee Styles - menggunakan transform untuk performa */
     .marquee-track {
       display: flex;
       gap: 1rem;
       padding: 0 0.5rem;
       will-change: transform;
+      backface-visibility: hidden;
     }
+
     .marquee-card {
-      position: relative;
       flex: 0 0 auto;
       width: 10rem;
       height: 7rem;
@@ -79,10 +61,12 @@
       cursor: pointer;
       transition: border-color .2s ease, box-shadow .2s ease;
     }
+
     .marquee-card:hover {
       border-color: rgba(168, 85, 247, 0.5);
       box-shadow: 0 8px 20px rgba(88, 28, 135, 0.35);
     }
+
     .marquee-card img {
       width: 100%;
       height: 100%;
@@ -93,9 +77,9 @@
       user-select: none;
       pointer-events: none;
     }
-    .marquee-card:hover img {
-      transform: scale(1.06);
-    }
+
+    .marquee-card:hover img { transform: scale(1.06); }
+
     .marquee-card .marquee-overlay {
       position: absolute;
       inset: 0;
@@ -110,51 +94,177 @@
       font-weight: 700;
       pointer-events: none;
     }
-    .marquee-card:hover .marquee-overlay {
-      opacity: 1;
-    }
+
+    .marquee-card:hover .marquee-overlay { opacity: 1; }
+
     @media (min-width: 640px) {
-      .marquee-card {
-        width: 12rem;
-        height: 8rem;
-      }
+      .marquee-card { width: 12rem; height: 8rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .marquee-track {
-        will-change: auto;
+      .marquee-track { will-change: auto; }
+    }
+
+    /* Project Detail Modal - dikompres */
+    .modal-image-stage {
+      width: 100%;
+      height: 100%;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 0.75rem;
+    }
+
+    .modal-image-stage img,
+    .project-detail-image {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center center;
+      border-radius: 0.75rem;
+    }
+
+    @media (max-width: 767px) {
+      .modal-image-stage { min-height: 55vh; }
+      .modal-image-stage img,
+      .project-detail-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
       }
     }
+
+    /* Project Detail Layout */
+    .project-detail-layout {
+      display: grid;
+      grid-template-columns: 1.7fr 0.8fr;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .project-image-panel {
+      min-width: 0;
+      min-height: 0;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid rgba(30, 41, 59, 0.9);
+    }
+
+    .project-image-stage {
+      width: 100%;
+      height: 100%;
+      min-height: 55vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .project-detail-image {
+      display: block;
+      object-fit: contain;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    .project-image-stage.is-landscape .project-detail-image {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+    }
+
+    .project-image-stage.is-portrait .project-detail-image {
+      height: 100%;
+      width: auto;
+      max-width: 100%;
+    }
+
+    .project-detail-info {
+      min-width: 0;
+      overflow-y: auto;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .project-category {
+      align-self: flex-start;
+      margin-bottom: 20px;
+      padding: 7px 11px;
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #d8b4fe;
+      background: rgba(168, 85, 247, .1);
+    }
+
+    .project-description {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 767px) {
+      .project-detail-layout {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+      .project-image-panel {
+        min-height: 44vh;
+        height: 44vh;
+        padding: 12px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(30, 41, 59, 0.9);
+      }
+      .project-image-stage { min-height: 0; height: 100%; }
+      .project-detail-info { padding: 22px; justify-content: flex-start; }
+      .project-description { font-size: 14px; line-height: 1.7; }
+    }
+
+    /* Utility classes untuk mengurangi Tailwind bloat */
+    .glow-purple { box-shadow: 0 0 30px rgba(88, 28, 135, 0.3); }
+    .transition-transform-fast { transition: transform .2s ease; }
+    .will-change-transform { will-change: transform; }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white">
 
-  <!-- NAVIGATION -->
+  <!-- NAVIGATION - dioptimasi -->
   <header class="fixed top-0 left-0 w-full bg-slate-950/85 backdrop-blur-md border-b border-purple-900/40 z-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
       <a href="#home" class="text-lg sm:text-xl font-extrabold text-white tracking-tight hover:opacity-80 transition-opacity">
         Hanif Imam<span class="text-purple-400">.</span>
       </a>
 
-      <!-- Desktop Nav -->
       <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-400">
         <a href="#home" class="hover:text-purple-300 transition-colors">Home</a>
-        <a href="#about" class="hover:text-purple-300 transition-colors">About Me</a>
+        <a href="#about" class="hover:text-purple-300 transition-colors">About</a>
         <a href="#portfolio" class="hover:text-purple-300 transition-colors">Portfolio</a>
-        <a href="#pricing" class="hover:text-purple-300 transition-colors">Paket & Estimasi</a>
+        <a href="#pricing" class="hover:text-purple-300 transition-colors">Paket</a>
         <a href="#contact" class="hover:text-purple-300 transition-colors">Contact</a>
       </nav>
 
       <div class="flex items-center gap-3">
-        <!-- CTA Nav (desktop / tablet) -->
         <a href="https://www.behance.net/sahbeartsherts" target="_blank" rel="noopener noreferrer"
            class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:opacity-90 text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow-sm shadow-purple-900/50 transition-all">
-          <span>Behance Profile</span>
-          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426h-3.033c-.085-.814-.836-1.558-2.222-1.558-1.573 0-2.391 1.096-2.391 2.923 0 1.95.899 3.003 2.456 3.003 1.344 0 2.128-.758 2.381-1.688h3.033zm-13.726-1.481c.883-.518 1.408-1.398 1.408-2.618 0-2.378-1.782-3.901-4.839-3.901h-6.569v12h6.883c3.298 0 5.228-1.637 5.228-4.223 0-1.488-.735-2.571-2.111-3.258zm-6.89-4.218h3.022c1.231 0 1.996.58 1.996 1.587 0 1.054-.805 1.638-2.074 1.638h-2.944v-3.225zm3.284 8.699h-3.284v-3.484h3.284c1.409 0 2.27.632 2.27 1.742 0 1.132-.882 1.742-2.27 1.742z"/></svg>
+          Behance
         </a>
 
-        <!-- Mobile Hamburger Button -->
-        <button id="mobileMenuBtn" onclick="openSidebar()" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileSidebar"
+        <button id="mobileMenuBtn" onclick="openSidebar()" aria-label="Buka menu" aria-expanded="false"
                 class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-purple-300 hover:border-purple-500/40 transition-all">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -164,7 +274,7 @@
     </div>
   </header>
 
-  <!-- MOBILE SIDEBAR NAV -->
+  <!-- MOBILE SIDEBAR -->
   <div id="sidebarOverlay" onclick="closeSidebar()"
        class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[60] opacity-0 pointer-events-none transition-opacity duration-300"></div>
 
@@ -180,9 +290,9 @@
 
     <nav class="flex flex-col gap-1 p-4 text-sm font-semibold text-slate-300 overflow-y-auto">
       <a href="#home" onclick="closeSidebar()" class="py-3 px-3 rounded-lg hover:bg-slate-900 hover:text-purple-300 transition-colors">Home</a>
-      <a href="#about" onclick="closeSidebar()" class="py-3 px-3 rounded-lg hover:bg-slate-900 hover:text-purple-300 transition-colors">About Me</a>
+      <a href="#about" onclick="closeSidebar()" class="py-3 px-3 rounded-lg hover:bg-slate-900 hover:text-purple-300 transition-colors">About</a>
       <a href="#portfolio" onclick="closeSidebar()" class="py-3 px-3 rounded-lg hover:bg-slate-900 hover:text-purple-300 transition-colors">Portfolio</a>
-      <a href="#pricing" onclick="closeSidebar()" class="py-3 px-3 rounded-lg hover:bg-slate-900 hover:text-purple-300 transition-colors">Paket & Estimasi</a>
+      <a href="#pricing" onclick="closeSidebar()" class="py-3 px-3 rounded-lg hover:bg-slate-900 hover:text-purple-300 transition-colors">Paket</a>
       <a href="#contact" onclick="closeSidebar()" class="py-3 px-3 rounded-lg hover:bg-slate-900 hover:text-purple-300 transition-colors">Contact</a>
     </nav>
 
@@ -190,10 +300,6 @@
       <a href="https://www.behance.net/sahbeartsherts" target="_blank" rel="noopener noreferrer"
          class="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:opacity-90 text-white text-xs font-bold px-4 py-3 rounded-lg shadow-sm shadow-purple-900/50 transition-all">
         Behance Profile
-      </a>
-      <a href="https://wa.me/6285150758781" target="_blank" rel="noopener noreferrer"
-         class="flex items-center justify-center gap-2 bg-slate-900 border border-slate-800 hover:border-purple-500/40 text-slate-200 text-xs font-bold px-4 py-3 rounded-lg transition-all">
-        Hubungi via WhatsApp
       </a>
     </div>
   </aside>
@@ -204,331 +310,140 @@
     <section id="home" class="pt-10 sm:pt-12 pb-10 sm:pb-12 bg-gradient-to-b from-purple-950/40 via-slate-950 to-slate-950 overflow-hidden">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
-        <!-- Sisi Kiri Hero: Deskripsi -->
         <div class="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left relative order-2 lg:order-1">
-
           <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3">
-            <!-- Persona Switcher -->
             <div class="inline-flex bg-slate-900 border border-slate-800 p-1 rounded-full text-xs font-bold shadow-inner">
-              <button id="btnClient" onclick="setPersona('client')" class="px-3 py-1 rounded-full bg-slate-800 text-purple-300 shadow-sm transition-all">Client View</button>
-              <button id="btnRecruiter" onclick="setPersona('recruiter')" class="px-3 py-1 rounded-full text-slate-500 hover:text-purple-300 transition-all">Recruiter View</button>
+              <button id="btnClient" onclick="setPersona('client')" class="px-3 py-1 rounded-full bg-slate-800 text-purple-300 shadow-sm transition-all">Client</button>
+              <button id="btnRecruiter" onclick="setPersona('recruiter')" class="px-3 py-1 rounded-full text-slate-500 hover:text-purple-300 transition-all">Recruiter</button>
             </div>
           </div>
 
           <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
             Hanif Imam Muttaqin
           </h1>
-
-          <p class="text-base sm:text-xl lg:text-2xl font-semibold text-purple-400">
-            Graphic Designer & Digital Illustrator
-          </p>
-
+          <p class="text-base sm:text-xl lg:text-2xl font-semibold text-purple-400">Graphic Designer & Digital Illustrator</p>
           <p id="personaDesc" class="text-slate-400 leading-relaxed transition-all text-sm sm:text-base max-w-xl mx-auto lg:mx-0">
             Membantu brand dan studio mewujudkan visi visual bernilai tinggi melalui desain grafis modern, karakter ilustrasi presisi, serta konten motion graphics yang memikat audiens.
           </p>
 
-          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2 relative z-10">
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2">
             <a href="#portfolio" class="w-full sm:w-auto text-center px-6 py-3.5 bg-gradient-to-r from-purple-600 to-blue-600 hover:opacity-90 text-white font-bold text-sm rounded-xl shadow-lg shadow-purple-900/40 transition-all hover:-translate-y-0.5">
-              Lihat Semua Karya
+              Lihat Karya
             </a>
             <a href="#pricing" class="w-full sm:w-auto text-center px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-sm rounded-xl border border-purple-900/50 shadow-sm transition-all hover:-translate-y-0.5">
               Paket Harga
             </a>
           </div>
-
         </div>
 
-        <!-- Sisi Kanan Hero: Foto Profil + Badge -->
         <div class="lg:col-span-5 flex justify-center relative z-0 order-1 lg:order-2">
-
-          <!-- Container Utama Foto Profil (Relative agar badge bisa menempel) -->
           <div class="w-full max-w-xs sm:max-w-md bg-slate-900 border-2 border-purple-900/40 rounded-3xl p-3 shadow-xl shadow-purple-950/50 overflow-visible relative">
-
-            <!-- Foto Profil Statis -->
-            <video
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="none"
+            <video autoplay muted loop playsinline preload="none"
               class="w-full h-auto max-h-[420px] rounded-2xl object-cover"
-              loading="lazy" decoding="async" fetchpriority="low">
-              <source data-src="assets/Sasuke2.mp4" type="video/mp4">
+              loading="lazy" decoding="async">
+              <source src="assets/Sasuke2.mp4" type="video/mp4">
             </video>
 
             <div class="absolute -bottom-5 -right-5 sm:-bottom-6 sm:-right-6 z-10 w-24 h-24 sm:w-40 sm:h-40 bg-slate-900 border-4 border-purple-900/60 rounded-full shadow-2xl shadow-purple-900/60 overflow-hidden flex items-center justify-center transform hover:scale-110 transition-transform cursor-pointer group">
-              <div class="absolute top-1 right-1 bg-purple-600 text-white text-[7px] font-bold px-1.5 py-0.5 rounded-full z-20 animate-pulse group-hover:animate-none">LIVE</div>
-              <img src="assets/thumbnails/profil.webp"
-                   class="w-full h-full object-cover rounded-full shadow-inner"
-                   alt="My Profile" decoding="async" fetchpriority="high">
+              <div class="absolute top-1 right-1 bg-purple-600 text-white text-[7px] font-bold px-1.5 py-0.5 rounded-full z-20 animate-pulse">LIVE</div>
+              <img src="assets/thumbnails/profil.webp" class="w-full h-full object-cover rounded-full shadow-inner" alt="Profile" decoding="async" fetchpriority="high">
             </div>
-
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- ABOUT ME & METHODOLOGY SECTION -->
+    <!-- ABOUT SECTION - dioptimasi -->
     <section id="about" class="perf-section py-14 sm:py-20 border-t border-purple-900/30 bg-slate-950 relative z-10">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
-
-        <!-- Section Heading -->
         <div class="max-w-3xl">
-          <h2 class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-2">
-            Tentang Saya & Metodologi
-          </h2>
-
-          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-6">
-            Mewujudkan Konsep Menjadi Karya Visual Bergaya Modern
-          </h3>
+          <h2 class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-2">Tentang Saya</h2>
+          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-6">Mewujudkan Konsep Menjadi Karya Visual</h3>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch mt-8">
 
           <!-- ABOUT + WORKFLOW -->
           <div class="lg:col-span-2 bg-slate-900/60 border border-slate-800 rounded-2xl p-5 sm:p-8 shadow-sm">
-
             <p class="text-slate-300 leading-relaxed text-sm sm:text-base lg:text-lg">
-              Saya adalah
-              <strong class="text-white font-bold">Hanif Imam Muttaqin</strong>,
-              seorang desainer yang berfokus pada
-              <strong class="text-white font-bold">Graphic Design</strong>
-              dan
-              <strong class="text-white font-bold">Digital Illustration</strong>.
-              Saya memiliki ketertarikan dalam menciptakan karya visual yang kreatif
-              dan menarik, mulai dari ilustrasi anime, desain grafis, hingga konten
-              visual. Dalam proses berkarya, saya menggunakan Clip Studio Paint,
-              Adobe Photoshop, dan Adobe After Effects untuk menghasilkan karya sesuai
-              dengan konsep dan kebutuhan setiap proyek.
+              Saya adalah <strong class="text-white font-bold">Hanif Imam Muttaqin</strong>,
+              seorang desainer yang berfokus pada <strong class="text-white font-bold">Graphic Design</strong>
+              dan <strong class="text-white font-bold">Digital Illustration</strong>.
+              Menggunakan Clip Studio Paint, Adobe Photoshop, dan Adobe After Effects.
             </p>
 
-            <!-- WORKFLOW -->
             <div class="pt-6 mt-6 border-t border-slate-800">
-
               <div class="flex items-center justify-between mb-5">
                 <div>
-                  <h4 class="text-sm font-bold text-white uppercase tracking-wider">
-                    4 Langkah Alur Kerja
-                  </h4>
-
-                  <p class="text-xs text-slate-500 mt-1">
-                    Dari brief hingga final delivery
-                  </p>
+                  <h4 class="text-sm font-bold text-white uppercase tracking-wider">4 Langkah Alur Kerja</h4>
+                  <p class="text-xs text-slate-500 mt-1">Dari brief hingga final delivery</p>
                 </div>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-                <!-- Step 01 -->
                 <div class="group bg-slate-800/40 hover:bg-slate-800/70 p-5 rounded-xl border border-slate-700 hover:border-purple-500/40 transition-all">
                   <div class="flex items-start gap-3">
-
-                    <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xs font-extrabold text-purple-400">
-                      01
-                    </span>
-
-                    <div>
-                      <span class="text-sm font-bold text-white">
-                        Brief & Discovery
-                      </span>
-
-                      <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                        Memahami kebutuhan proyek, konsep, referensi, dan menentukan
-                        arah visual yang sesuai.
-                      </p>
-                    </div>
-
+                    <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xs font-extrabold text-purple-400">01</span>
+                    <div><span class="text-sm font-bold text-white">Brief & Discovery</span><p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Memahami kebutuhan proyek dan arah visual.</p></div>
                   </div>
                 </div>
-
-                <!-- Step 02 -->
                 <div class="group bg-slate-800/40 hover:bg-slate-800/70 p-5 rounded-xl border border-slate-700 hover:border-purple-500/40 transition-all">
                   <div class="flex items-start gap-3">
-
-                    <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xs font-extrabold text-purple-400">
-                      02
-                    </span>
-
-                    <div>
-                      <span class="text-sm font-bold text-white">
-                        Sketch & Concept
-                      </span>
-
-                      <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                        Mengembangkan sketsa awal, komposisi, pose, serta konsep
-                        visual sebelum masuk ke tahap produksi.
-                      </p>
-                    </div>
-
+                    <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xs font-extrabold text-purple-400">02</span>
+                    <div><span class="text-sm font-bold text-white">Sketch & Concept</span><p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Mengembangkan sketsa dan komposisi awal.</p></div>
                   </div>
                 </div>
-
-                <!-- Step 03 -->
                 <div class="group bg-slate-800/40 hover:bg-slate-800/70 p-5 rounded-xl border border-slate-700 hover:border-purple-500/40 transition-all">
                   <div class="flex items-start gap-3">
-
-                    <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xs font-extrabold text-purple-400">
-                      03
-                    </span>
-
-                    <div>
-                      <span class="text-sm font-bold text-white">
-                        Production
-                      </span>
-
-                      <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                        Mengembangkan karya melalui lineart, coloring, shading,
-                        lighting, hingga tahap finishing.
-                      </p>
-                    </div>
-
+                    <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xs font-extrabold text-purple-400">03</span>
+                    <div><span class="text-sm font-bold text-white">Production</span><p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Lineart, coloring, shading, hingga finishing.</p></div>
                   </div>
                 </div>
-
-                <!-- Step 04 -->
                 <div class="group bg-slate-800/40 hover:bg-slate-800/70 p-5 rounded-xl border border-slate-700 hover:border-purple-500/40 transition-all">
                   <div class="flex items-start gap-3">
-
-                    <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xs font-extrabold text-purple-400">
-                      04
-                    </span>
-
-                    <div>
-                      <span class="text-sm font-bold text-white">
-                        Final Delivery
-                      </span>
-
-                      <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                        Finalisasi karya dan penyerahan file dalam format serta
-                        resolusi yang sesuai kebutuhan proyek.
-                      </p>
-                    </div>
-
+                    <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xs font-extrabold text-purple-400">04</span>
+                    <div><span class="text-sm font-bold text-white">Final Delivery</span><p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Penyerahan file sesuai kebutuhan proyek.</p></div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
 
-
-          <!-- SOFTWARE & CAPABILITIES -->
+          <!-- SOFTWARE -->
           <div class="bg-gradient-to-br from-purple-950 via-slate-900 to-slate-950 border border-purple-900/40 text-white rounded-2xl p-5 sm:p-8 shadow-xl relative overflow-hidden">
-
-            <!-- Decorative Glow -->
             <div class="absolute -top-16 -right-16 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl"></div>
-
             <div class="relative z-10">
-
               <div class="flex items-center justify-between mb-2">
-                <h4 class="text-lg font-bold text-purple-300">
-                  Tools & Capabilities
-                </h4>
-
-                <span class="text-[9px] font-bold uppercase tracking-widest text-slate-500">
-                  Primary Tools
-                </span>
+                <h4 class="text-lg font-bold text-purple-300">Tools & Capabilities</h4>
+                <span class="text-[9px] font-bold uppercase tracking-widest text-slate-500">Primary</span>
               </div>
+              <p class="text-xs text-slate-400 mb-6">Software yang digunakan dalam proses kreatif.</p>
 
-              <p class="text-xs text-slate-400 mb-6">
-                Software yang digunakan dalam proses kreatif dan produksi visual.
-              </p>
-
-
-              <!-- TOOL 1 -->
               <div class="group flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-purple-500/30 hover:bg-white/[0.05] transition-all">
-
-                <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center">
-                  <p>P</p>
-                </div>
-
-                <div>
-                  <h5 class="text-sm font-bold text-white">
-                    Clip Studio Paint
-                  </h5>
-
-                  <p class="text-[11px] text-slate-400 mt-0.5">
-                    Digital Illustration & Character Art
-                  </p>
-                </div>
-
+                <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center text-cyan-400 font-bold text-xs">P</div>
+                <div><h5 class="text-sm font-bold text-white">Clip Studio Paint</h5><p class="text-[11px] text-slate-400">Digital Illustration</p></div>
               </div>
 
-
-              <!-- TOOL 2 -->
               <div class="group flex items-center gap-4 p-4 mt-3 rounded-xl bg-white/[0.03] border border-white/5 hover:border-purple-500/30 hover:bg-white/[0.05] transition-all">
-
-                <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-blue-400/10 border border-blue-400/20 flex items-center justify-center">
-                  <p>Ps</p>
-                </div>
-
-                <div>
-                  <h5 class="text-sm font-bold text-white">
-                    Adobe Photoshop
-                  </h5>
-
-                  <p class="text-[11px] text-slate-400 mt-0.5">
-                    Editing, Compositing & Visual Finishing
-                  </p>
-                </div>
-
+                <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-blue-400/10 border border-blue-400/20 flex items-center justify-center text-blue-400 font-bold text-xs">Ps</div>
+                <div><h5 class="text-sm font-bold text-white">Adobe Photoshop</h5><p class="text-[11px] text-slate-400">Editing & Compositing</p></div>
               </div>
 
-
-              <!-- TOOL 3 -->
               <div class="group flex items-center gap-4 p-4 mt-3 rounded-xl bg-white/[0.03] border border-white/5 hover:border-purple-500/30 hover:bg-white/[0.05] transition-all">
-
-                <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-purple-400/10 border border-purple-400/20 flex items-center justify-center">
-                  <p>Ae</p>
-                </div>
-
-                <div>
-                  <h5 class="text-sm font-bold text-white">
-                    Adobe After Effects
-                  </h5>
-
-                  <p class="text-[11px] text-slate-400 mt-0.5">
-                    Motion Graphics & Animation
-                  </p>
-                </div>
-
+                <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-purple-400/10 border border-purple-400/20 flex items-center justify-center text-purple-400 font-bold text-xs">Ae</div>
+                <div><h5 class="text-sm font-bold text-white">Adobe After Effects</h5><p class="text-[11px] text-slate-400">Motion Graphics</p></div>
               </div>
 
-
-              <!-- CAPABILITIES -->
               <div class="mt-7 pt-6 border-t border-white/10">
-
-                <h5 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">
-                  Core Capabilities
-                </h5>
-
+                <h5 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">Core Capabilities</h5>
                 <div class="flex flex-wrap gap-2">
-
-                  <span class="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10px] font-semibold text-purple-300">
-                    Character Design
-                  </span>
-
-                  <span class="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10px] font-semibold text-purple-300">
-                    Digital Illustration
-                  </span>
-
-                  <span class="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10px] font-semibold text-purple-300">
-                    Graphic Design
-                  </span>
-
-                  <span class="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10px] font-semibold text-purple-300">
-                    Motion Graphics
-                  </span>
-
-                  <span class="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10px] font-semibold text-purple-300">
-                    Visual Composition
-                  </span>
-
+                  <span class="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10px] font-semibold text-purple-300">Character Design</span>
+                  <span class="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10px] font-semibold text-purple-300">Digital Illustration</span>
+                  <span class="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10px] font-semibold text-purple-300">Graphic Design</span>
+                  <span class="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10px] font-semibold text-purple-300">Motion Graphics</span>
                 </div>
-
               </div>
-
             </div>
           </div>
 
@@ -539,75 +454,58 @@
     <!-- PORTFOLIO SECTION -->
     <section id="portfolio" class="perf-section py-14 sm:py-20 bg-slate-950 relative z-10">
 
-      <!-- CAROUSEL PROJECT BERGERAK (INFINITE MARQUEE, DIRENDER VIA JS AGAR KEDUA SET SELALU IDENTIK) -->
+      <!-- MARQUEE -->
       <div class="mt-10 sm:mt-14 pt-8 border-y border-purple-900/30 relative pb-14 mb-14">
         <div class="text-center mb-6 px-4">
-          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white text-center">Karya Ilustrasi</h3>
-          <span class="text-xs font-bold uppercase tracking-widest text-slate-500">Proyek Ilustrasi (Klik Gambar Untuk Detail)</span>
+          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white">Karya Ilustrasi</h3>
+          <span class="text-xs font-bold uppercase tracking-widest text-slate-500">Klik gambar untuk detail</span>
         </div>
 
-        <!-- Mask Gradient Kiri Kanan -->
         <div class="relative w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-10 sm:before:w-20 before:bg-gradient-to-r before:from-slate-950 before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-10 sm:after:w-20 after:bg-gradient-to-l after:from-slate-950 after:to-transparent">
-
-          <!-- Track: dirender dari array data via JS (dobel, untuk loop tanpa jeda) dan
-               digerakkan dengan requestAnimationFrame supaya mulus + bisa di-drag user -->
           <div id="portfolioMarquee" class="marquee-track"></div>
         </div>
       </div>
 
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
-
         <div class="flex flex-col md:flex-row md:items justify-center mb-10 sm:mb-12 gap-6">
-          <div>
-            <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white">Karya Animasi</h3>
-          </div>
+          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white">Karya Animasi</h3>
         </div>
 
-        <!-- Portfolio Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
 
-          <!-- Item 1: Anime Illustration -->
-          <div class="portfolio-item anime group bg-slate-900 rounded-2xl overflow-hidden border-2 border-slate-800 shadow-sm hover:shadow-xl hover:border-purple-500/50 transition-all duration-300 cursor-pointer">
-            <div class="relative aspect-[4/3] bg-slate-800 overflow-hidden z-0">
-              <video
-                loop
-                autoplay
-                muted
-                playsinline
-                data-src="assets/Animation Character anime.mp4"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-0"
-                loading="lazy" preload="none"></video>
+          <div class="portfolio-item group bg-slate-900 rounded-2xl overflow-hidden border-2 border-slate-800 shadow-sm hover:shadow-xl hover:border-purple-500/50 transition-all duration-300 cursor-pointer">
+            <div class="relative aspect-[4/3] bg-slate-800 overflow-hidden">
+              <video loop autoplay muted playsinline
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy" preload="none">
+                <source src="assets/Animation Character anime.mp4" type="video/mp4">
+              </video>
             </div>
-            <div class="p-5 sm:p-6 relative z-10">
-              <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-300 bg-purple-500/10 px-2.5 py-1 rounded-md relative z-10">Video Animation</span>
-              <h4 class="text-lg font-bold text-white mt-3 group-hover:text-purple-300 transition-colors relative z-10">Chibi Dance</h4>
+            <div class="p-5 sm:p-6">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-300 bg-purple-500/10 px-2.5 py-1 rounded-md">Video Animation</span>
+              <h4 class="text-lg font-bold text-white mt-3 group-hover:text-purple-300 transition-colors">Chibi Dance</h4>
             </div>
           </div>
 
-          <!-- Item 2: Video Motion -->
-          <div class="portfolio-item video group bg-slate-900 rounded-2xl overflow-hidden border-2 border-slate-800 shadow-sm hover:shadow-xl hover:border-purple-500/50 transition-all duration-300 cursor-pointer">
-            <div class="relative aspect-[4/3] bg-slate-800 overflow-hidden z-0">
-              <video
-                loop
-                autoplay
-                muted
-                playsinline
-                data-src="assets/Sasuke2.mp4"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-0"
-                loading="lazy" preload="none"></video>
+          <div class="portfolio-item group bg-slate-900 rounded-2xl overflow-hidden border-2 border-slate-800 shadow-sm hover:shadow-xl hover:border-purple-500/50 transition-all duration-300 cursor-pointer">
+            <div class="relative aspect-[4/3] bg-slate-800 overflow-hidden">
+              <video loop autoplay muted playsinline
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy" preload="none">
+                <source src="assets/Sasuke2.mp4" type="video/mp4">
+              </video>
             </div>
-            <div class="p-5 sm:p-6 relative z-10">
-              <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-300 bg-purple-500/10 px-2.5 py-1 rounded-md relative z-10">Video Animation</span>
-              <h4 class="text-lg font-bold text-white mt-3 group-hover:text-purple-300 transition-colors relative z-10">Uchiha Sasuke</h4>
+            <div class="p-5 sm:p-6">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-300 bg-purple-500/10 px-2.5 py-1 rounded-md">Video Animation</span>
+              <h4 class="text-lg font-bold text-white mt-3 group-hover:text-purple-300 transition-colors">Uchiha Sasuke</h4>
             </div>
           </div>
 
         </div>
-
       </div>
     </section>
 
-    <!-- GIF BESAR DI TENGAH, TEPAT DI BAWAH PROJECT -->
+    <!-- SHOWCASE GIF -->
     <section id="showcase" class="perf-section py-16 sm:py-24 bg-gradient-to-b from-slate-950 via-purple-950/30 to-slate-950 border-t border-purple-900/30 relative z-10 overflow-hidden">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
         <h2 class="text-xs font-bold text-purple-300 uppercase tracking-widest mb-2">Speed Paint</h2>
@@ -615,75 +513,69 @@
 
         <div class="mx-auto max-w-3xl bg-slate-900/60 border-2 border-purple-700/50 rounded-3xl p-3 sm:p-4 shadow-2xl shadow-purple-900/50">
           <div class="rounded-2xl overflow-hidden bg-slate-900">
-            <video muted loop autoplay playsinline
-              class="w-full h-auto object-cover"
-              data-src="assets/Oguri Cup background cloud clip.mp4"
-              alt="Speedpaint"
-              loading="lazy" preload="none"></video>
+            <video muted loop autoplay playsinline class="w-full h-auto object-cover" loading="lazy" preload="none">
+              <source src="assets/Oguri Cup background cloud clip.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
 
-        <p class="text-slate-400 text-sm mt-6 max-w-xl mx-auto">Cuplikan animasi proses pengerjaan ilustrasi, dari sketsa kasar hingga hasil akhir yang siap diserahkan ke klien.</p>
+        <p class="text-slate-400 text-sm mt-6 max-w-xl mx-auto">Cuplikan animasi proses pengerjaan ilustrasi, dari sketsa kasar hingga hasil akhir.</p>
       </div>
     </section>
 
-    <!-- PERKIRAAN WAKTU & ESTIMASI PENGERJAAN -->
+    <!-- PRICING -->
     <section id="pricing" class="perf-section py-14 sm:py-20 bg-slate-950 border-t border-purple-900/30 relative z-10">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-12 relative z-10">
-          <h2 class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 relative z-10">Layanan</h2>
-          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white relative z-10">Perkiraan Waktu & Estimasi Pengerjaan</h3>
-          <p class="text-slate-400 text-sm mt-2 relative z-10">Pilih paket yang paling sesuai dengan kebutuhan dan tingkat detail proyek kamu.</p>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+          <h2 class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-2">Layanan</h2>
+          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white">Perkiraan Waktu & Estimasi</h3>
+          <p class="text-slate-400 text-sm mt-2">Pilih paket yang paling sesuai dengan kebutuhan proyek kamu.</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 items-stretch relative z-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 items-stretch">
 
-          <!-- Paket 1: Anime Chibi -->
-          <div class="bg-slate-900 border-2 border-slate-800 rounded-3xl p-6 text-center shadow-sm hover:shadow-md hover:border-purple-500/50 transition-all flex flex-col relative z-10">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-wider relative z-10">Paket 1</span>
-            <h4 class="text-lg font-extrabold text-white mt-2 relative z-10">Anime Chibi</h4>
-            <div class="text-2xl font-extrabold text-purple-300 mt-4 relative z-10">2–4 Hari</div>
-            <p class="text-xs text-slate-500 mt-1 relative z-10">Hari kerja</p>
-            <a href="#contact" class="mt-6 inline-block text-center w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-3 rounded-xl transition-all relative z-10">Diskusi Brief</a>
+          <div class="bg-slate-900 border-2 border-slate-800 rounded-3xl p-6 text-center shadow-sm hover:shadow-md hover:border-purple-500/50 transition-all flex flex-col">
+            <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">Paket 1</span>
+            <h4 class="text-lg font-extrabold text-white mt-2">Anime Chibi</h4>
+            <div class="text-2xl font-extrabold text-purple-300 mt-4">2–4 Hari</div>
+            <p class="text-xs text-slate-500 mt-1">Hari kerja</p>
+            <a href="#contact" class="mt-6 inline-block text-center w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-3 rounded-xl transition-all">Diskusi Brief</a>
           </div>
 
-          <!-- Paket 2: Anime Art Style -->
-          <div class="bg-slate-900 border-2 border-slate-800 rounded-3xl p-6 text-center shadow-sm hover:shadow-md hover:border-purple-500/50 transition-all flex flex-col relative z-10">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-wider relative z-10">Paket 2</span>
-            <h4 class="text-lg font-extrabold text-white mt-2 relative z-10">Anime Art Style</h4>
-            <div class="text-2xl font-extrabold text-purple-300 mt-4 relative z-10">4–7 Hari</div>
-            <p class="text-xs text-slate-500 mt-1 relative z-10">Hari kerja</p>
-            <a href="#contact" class="mt-6 inline-block text-center w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-3 rounded-xl transition-all relative z-10">Diskusi Brief</a>
+          <div class="bg-slate-900 border-2 border-slate-800 rounded-3xl p-6 text-center shadow-sm hover:shadow-md hover:border-purple-500/50 transition-all flex flex-col">
+            <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">Paket 2</span>
+            <h4 class="text-lg font-extrabold text-white mt-2">Anime Art Style</h4>
+            <div class="text-2xl font-extrabold text-purple-300 mt-4">4–7 Hari</div>
+            <p class="text-xs text-slate-500 mt-1">Hari kerja</p>
+            <a href="#contact" class="mt-6 inline-block text-center w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-3 rounded-xl transition-all">Diskusi Brief</a>
           </div>
 
-          <!-- Paket 3: Anime Full Body (highlighted) -->
-          <div class="bg-gradient-to-br from-purple-950 to-slate-900 border-2 border-purple-600/60 text-white rounded-3xl p-6 text-center shadow-xl flex flex-col relative z-10">
-            <span class="text-xs font-bold text-purple-300 uppercase tracking-wider relative z-10">Paket 3</span>
-            <h4 class="text-lg font-extrabold text-white mt-2 relative z-10">Anime Full Body</h4>
-            <div class="text-2xl font-extrabold text-white mt-4 relative z-10">7–14 Hari</div>
-            <p class="text-xs text-purple-200 mt-1 relative z-10">Hari kerja</p>
-            <a href="#contact" class="mt-6 inline-block text-center w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:opacity-90 text-white font-bold text-xs py-3 rounded-xl transition-all relative z-10">Diskusi Brief</a>
+          <div class="bg-gradient-to-br from-purple-950 to-slate-900 border-2 border-purple-600/60 text-white rounded-3xl p-6 text-center shadow-xl flex flex-col">
+            <span class="text-xs font-bold text-purple-300 uppercase tracking-wider">Paket 3</span>
+            <h4 class="text-lg font-extrabold text-white mt-2">Anime Full Body</h4>
+            <div class="text-2xl font-extrabold text-white mt-4">7–14 Hari</div>
+            <p class="text-xs text-purple-200 mt-1">Hari kerja</p>
+            <a href="#contact" class="mt-6 inline-block text-center w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:opacity-90 text-white font-bold text-xs py-3 rounded-xl transition-all">Diskusi Brief</a>
           </div>
 
-          <!-- Paket Custom Anime -->
-          <div class="bg-slate-900 border-2 border-slate-800 rounded-3xl p-6 text-center shadow-sm hover:shadow-md hover:border-purple-500/50 transition-all flex flex-col relative z-10">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-wider relative z-10">Custom</span>
-            <h4 class="text-lg font-extrabold text-white mt-2 relative z-10">Custom Anime</h4>
-            <div class="text-2xl font-extrabold text-purple-300 mt-4 relative z-10">7–14 Hari</div>
-            <p class="text-xs text-slate-500 mt-1 relative z-10">Tergantung tingkat detail & request</p>
-            <a href="#contact" class="mt-6 inline-block text-center w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-3 rounded-xl transition-all relative z-10">Diskusi Brief</a>
+          <div class="bg-slate-900 border-2 border-slate-800 rounded-3xl p-6 text-center shadow-sm hover:shadow-md hover:border-purple-500/50 transition-all flex flex-col">
+            <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">Custom</span>
+            <h4 class="text-lg font-extrabold text-white mt-2">Custom Anime</h4>
+            <div class="text-2xl font-extrabold text-purple-300 mt-4">7–14 Hari</div>
+            <p class="text-xs text-slate-500 mt-1">Tergantung detail</p>
+            <a href="#contact" class="mt-6 inline-block text-center w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-3 rounded-xl transition-all">Diskusi Brief</a>
           </div>
 
         </div>
       </div>
     </section>
 
-    <!-- CONTACT & FOLLOW ME SECTION -->
+    <!-- CONTACT -->
     <section id="contact" class="perf-section py-14 sm:py-20 bg-slate-950 border-t border-purple-900/30 relative z-10">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
-        <div class="bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-950 border border-purple-900/40 rounded-3xl p-6 sm:p-8 lg:p-12 text-white text-center shadow-2xl relative overflow-hidden z-10">
-          <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-purple-500/10 rounded-full blur-2xl z-0"></div>
-          <div class="absolute -left-10 -top-10 w-48 h-48 bg-blue-500/10 rounded-full blur-2xl z-0"></div>
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <div class="bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-950 border border-purple-900/40 rounded-3xl p-6 sm:p-8 lg:p-12 text-white text-center shadow-2xl relative overflow-hidden">
+          <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-purple-500/10 rounded-full blur-2xl"></div>
+          <div class="absolute -left-10 -top-10 w-48 h-48 bg-blue-500/10 rounded-full blur-2xl"></div>
 
           <span class="inline-block text-xs font-bold text-purple-300 uppercase tracking-widest mb-3 relative z-10">Pilihan Utama</span>
           <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight mb-4 relative z-10">Tertarik dengan Karya Saya?</h2>
@@ -693,34 +585,29 @@
 
           <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 relative z-10">
             <a href="https://www.behance.net/sahbeartsherts" target="_blank"
-               title="Behance"
-               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-purple-900 hover:bg-purple-50 font-bold text-sm px-8 py-4 rounded-xl shadow-lg transition-all hover:scale-105 relative z-10">
+               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-purple-900 hover:bg-purple-50 font-bold text-sm px-8 py-4 rounded-xl shadow-lg transition-all hover:scale-105">
               Lihat Karya Lainnya
-            <svg class="text-purple-900 w-5 h-5" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M52.63 60.28s10.5-.78 10.5-13.09-8.59-18.32-19.47-18.32H7.86v68.8h35.8s21.85.69 21.85-20.31c0 0 .96-17.08-12.88-17.08zm-29-19.18h20s4.87 0 4.87 7.16-2.86 8.2-6.11 8.2H23.64zm19.1 44.34H23.64V67.06h20s7.25-.1 7.25 9.45c.02 7.95-5.28 8.85-8.15 8.93zM94.66 46.38c-26.46 0-26.43 26.43-26.43 26.43s-1.82 26.3 26.43 26.3c0 0 23.54 1.34 23.54-18.29h-12.1s.4 7.4-11 7.4c0 0-12.11.81-12.11-12h35.65s3.87-29.84-23.98-29.84zm10.76 20.68h-22.6s1.48-10.6 12.11-10.6 10.49 10.6 10.49 10.6zM79.86 32.93h28.38v8.47H79.86z"/></svg>
+              <svg class="text-purple-900 w-5 h-5" viewBox="0 0 128 128"><path fill="currentColor" d="M52.63 60.28s10.5-.78 10.5-13.09-8.59-18.32-19.47-18.32H7.86v68.8h35.8s21.85.69 21.85-20.31c0 0 .96-17.08-12.88-17.08zm-29-19.18h20s4.87 0 4.87 7.16-2.86 8.2-6.11 8.2H23.64zm19.1 44.34H23.64V67.06h20s7.25-.1 7.25 9.45c.02 7.95-5.28 8.85-8.15 8.93zM94.66 46.38c-26.46 0-26.43 26.43-26.43 26.43s-1.82 26.3 26.43 26.3c0 0 23.54 1.34 23.54-18.29h-12.1s.4 7.4-11 7.4c0 0-12.11.81-12.11-12h35.65s3.87-29.84-23.98-29.84zm10.76 20.68h-22.6s1.48-10.6 12.11-10.6 10.49 10.6 10.49 10.6zM79.86 32.93h28.38v8.47H79.86z"/></svg>
             </a>
             <a href="https://wa.me/6285150758781" target="_blank" rel="noopener noreferrer"
-               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:opacity-90 text-white font-bold text-sm px-8 py-4 rounded-xl shadow-lg transition-all hover:scale-105 relative z-10">
+               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:opacity-90 text-white font-bold text-sm px-8 py-4 rounded-xl shadow-lg transition-all hover:scale-105">
               Hubungi Saya
             </a>
           </div>
 
-          <!-- FOLLOW ME -->
-          <div class="mt-10 pt-8 border-t border-white/10 relative z-10">
-            <span class="text-xs font-bold text-purple-300 uppercase tracking-widest relative z-10">Follow Me</span>
-            <div class="flex flex-wrap items-center justify-center gap-3 mt-4 relative z-10">
-
+          <div class="mt-10 pt-8 border-t border-white/10">
+            <span class="text-xs font-bold text-purple-300 uppercase tracking-widest">Follow Me</span>
+            <div class="flex flex-wrap items-center justify-center gap-3 mt-4">
               <a href="https://www.instagram.com/h_mtt_draw/" target="_blank" rel="noopener noreferrer"
-                 class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all relative z-10">
-                <svg class="w-4 h-4 fill-current relative z-10" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                <span class="relative z-10">Instagram</span>
+                 class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                Instagram
               </a>
-
               <a href="https://wa.me/6285150758781" target="_blank" rel="noopener noreferrer"
-                 class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all relative z-10">
-                <svg class="w-4 h-4 fill-current relative z-10" viewBox="0 0 24 24"><path d="M12.04 2c-5.523 0-10 4.477-10 10 0 1.76.457 3.417 1.257 4.855l-1.336 4.884 5.008-1.313c1.38.752 2.958 1.174 4.646 1.174 5.523 0 10-4.477 10-10.001 0-5.522-4.477-9.999-10.575-9.599zm5.844 14.16c-.243.686-1.418 1.31-1.955 1.34-.5.03-.943.212-3.18-.66-2.68-1.062-4.4-3.775-4.53-3.95-.13-.174-1.077-1.43-1.077-2.727 0-1.297.68-1.933.923-2.198.243-.264.53-.33.706-.33.176 0 .353.002.507.01.163.008.382-.062.598.457.243.585.826 2.02.899 2.166.073.146.122.317.024.51-.098.194-.147.315-.29.485-.146.17-.307.38-.438.51-.146.146-.298.305-.128.6.17.293.756 1.246 1.622 2.018 1.114.994 2.053 1.301 2.347 1.447.293.146.463.122.634-.073.17-.196.729-.85.923-1.142.195-.293.39-.244.658-.146.268.097 1.7.802 1.992.948.293.146.488.22.56.34.073.122.073.7-.17 1.386z"/></svg>
-                <span class="relative z-10">WhatsApp</span>
+                 class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.04 2c-5.523 0-10 4.477-10 10 0 1.76.457 3.417 1.257 4.855l-1.336 4.884 5.008-1.313c1.38.752 2.958 1.174 4.646 1.174 5.523 0 10-4.477 10-10.001 0-5.522-4.477-9.999-10.575-9.599zm5.844 14.16c-.243.686-1.418 1.31-1.955 1.34-.5.03-.943.212-3.18-.66-2.68-1.062-4.4-3.775-4.53-3.95-.13-.174-1.077-1.43-1.077-2.727 0-1.297.68-1.933.923-2.198.243-.264.53-.33.706-.33.176 0 .353.002.507.01.163.008.382-.062.598.457.243.585.826 2.02.899 2.166.073.146.122.317.024.51-.098.194-.147.315-.29.485-.146.17-.307.38-.438.51-.146.146-.298.305-.128.6.17.293.756 1.246 1.622 2.018 1.114.994 2.053 1.301 2.347 1.447.293.146.463.122.634-.073.17-.196.729-.85.923-1.142.195-.293.39-.244.658-.146.268.097 1.7.802 1.992.948.293.146.488.22.56.34.073.122.073.7-.17 1.386z"/></svg>
+                WhatsApp
               </a>
-
             </div>
           </div>
         </div>
@@ -730,183 +617,84 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-black text-slate-500 text-xs py-8 border-t border-purple-900/30 text-center relative z-10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-      <p class="relative z-10">&copy; 2026 Hanif Imam Muttaqin. Built with Tailwind CSS.</p>
+  <footer class="bg-black text-slate-500 text-xs py-8 border-t border-purple-900/30 text-center">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <p>&copy; 2026 Hanif Imam Muttaqin. Built with Tailwind CSS.</p>
     </div>
   </footer>
 
   <!-- PROJECT DETAIL MODAL -->
-  <div id="projectModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-3 sm:p-4">
-    <div class="bg-slate-900 border border-purple-900/40 rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl transform transition-all my-6 sm:my-8 relative z-10 max-h-[92vh] flex flex-col">
+  <div id="projectModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-3 sm:p-5">
+    <div class="bg-slate-900 border border-purple-900/40 rounded-3xl w-full max-w-6xl max-h-[92vh] overflow-hidden shadow-2xl flex flex-col">
 
-      <!-- Modal Header -->
-      <div class="px-5 sm:px-6 py-4 border-b border-slate-800 flex items-center justify-between z-10 relative flex-shrink-0">
-        <h3 id="modalTitle" class="text-base sm:text-lg font-bold text-white relative z-10">Judul Proyek</h3>
-        <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center hover:bg-slate-700 transition-colors z-10 relative flex-shrink-0">
-          &times;
-        </button>
+      <div class="px-5 sm:px-8 py-4 sm:py-5 border-b border-slate-800 flex items-center justify-between flex-shrink-0">
+        <h3 id="modalTitle" class="text-lg sm:text-2xl font-bold text-white">Judul Proyek</h3>
+        <button onclick="closeModal()" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center hover:bg-slate-700 hover:text-white transition-colors flex-shrink-0">&times;</button>
       </div>
 
-      <!-- Modal Body -->
-      <div class="p-5 sm:p-6 overflow-y-auto space-y-4 relative z-10">
-        <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center min-h-[220px] sm:min-h-[300px] max-h-[60vh] relative">
-          <img id="modalImg" src="" alt="Project Display" class="max-w-full max-h-[60vh] w-auto h-auto object-contain block transition-transform duration-500 relative z-0" loading="lazy" decoding="async" fetchpriority="low">
+      <div class="grid grid-cols-1 md:grid-cols-[1.55fr_0.85fr] min-h-0 flex-1 overflow-y-auto">
+        <div class="min-h-[320px] md:min-h-0 p-4 sm:p-6 md:p-8 flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-800">
+          <div id="modalImageStage" class="w-full h-full min-h-[300px] md:min-h-[60vh] flex items-center justify-center overflow-hidden">
+            <img id="modalImg" src="" alt="Project Display" class="project-detail-image" loading="lazy" decoding="async">
+          </div>
         </div>
 
-        <div class="flex flex-wrap items-center gap-3 relative z-10">
-          <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-300 bg-purple-500/10 px-2.5 py-1 rounded-md relative z-10" id="modalCategory">
-            Kategori
-          </span>
+        <div class="p-5 sm:p-7 md:p-8 flex flex-col justify-center">
+          <span id="modalCategory" class="self-start text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-purple-300 bg-purple-500/10 px-3 py-1.5 rounded-md mb-5">Kategori</span>
+          <p id="modalDescription" class="text-sm sm:text-base md:text-lg text-slate-300 leading-7 md:leading-8">Deskripsi detail proyek.</p>
         </div>
-
-        <p id="modalDescription" class="text-sm text-slate-300 leading-relaxed pt-2 relative z-10">
-          Deskripsi detail proyek.
-        </p>
       </div>
 
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
   <script>
-    // ---------------------------------------------------------------
-    // Data proyek — satu sumber data untuk kedua set marquee, agar
-    // tidak pernah ada perbedaan/patahan di titik sambungan animasi.
-    // Setiap item punya thumbnail (untuk marquee) & foto full (untuk modal).
-    // ---------------------------------------------------------------
+    // Data proyek - dikompres
     const projects = [
-      {
-        title: 'Goku Energy Burst',
-        category: 'Digital Illustration',
-        thumb: 'assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.webp',
-        full: 'assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.webp',
-        desc: 'Ilustrasi Goku dalam pose aksi saat mengeluarkan energi dengan kekuatan penuh. Perpaduan warna biru, putih, dan oranye memberikan kontras yang kuat, sementara efek cahaya dan garis dinamis digunakan untuk memperkuat kesan energi dan gerakan pada karakter.'
-      },
-      {
-        title: 'Oguri Cap Cloud',
-        category: 'Digital Illustration',
-        thumb: 'assets/thumbnails/Oguri-Cup-background-cloud-clip.webp',
-        full: 'assets/thumbnails/Oguri-Cup-background-cloud-clip.webp',
-        desc: 'Ilustrasi Oguri Cap dengan latar langit yang dipenuhi awan dan nuansa warna biru. Komposisi karakter dibuat menyatu dengan suasana langit, sementara pencahayaan lembut digunakan untuk memberikan kesan tenang, cerah, dan sedikit dreamy.'
-      },
-      {
-        title: 'Hatsune Miku Beach',
-        category: 'Digital Illustration',
-        thumb: 'assets/thumbnails/Miku-Hatsune-Beach.webp',
-        full: 'assets/thumbnails/Miku-Hatsune-Beach.webp',
-        desc: 'Ilustrasi Hatsune Miku dengan konsep suasana pantai dan nuansa musim panas. Dominasi warna biru pada langit dan laut dipadukan dengan karakter untuk menciptakan suasana yang cerah, santai, dan menyegarkan, dengan fokus utama tetap pada ekspresi dan visual karakter.'
-      },
-      {
-        title: 'Super Saiyan Goku',
-        category: 'Digital Illustration',
-        thumb: 'assets/thumbnails/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp',
-        full: 'assets/thumbnails/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp',
-        desc: 'Ilustrasi Goku dalam bentuk Super Saiyan dengan pose yang menunjukkan kekuatan dan energi. Penggunaan warna cerah, kontras yang kuat, serta efek cahaya membantu menonjolkan karakter dan menciptakan suasana aksi yang lebih dramatis dan penuh tenaga.'
-      },
-      {
-        title: 'Citlali Genshin Impace',
-        category: 'Digital Illustration',
-        thumb: 'assets/thumbnails/Final-Citali-Genshin-impact.webp',
-        full: 'assets/thumbnails/Final-Citali-Genshin-impact.webp',
-        desc: 'Ilustrasi Citlali dengan nuansa ungu dan atmosfer fantasi yang menjadi fokus utama karya. Detail pada karakter, pewarnaan, serta pencahayaan dikembangkan untuk memberikan tampilan yang lebih hidup sekaligus mempertahankan kesan magis dan elegan pada ilustrasi.'
-      },
-      {
-        title: 'Frieren Blue Moon',
-        category: 'Digital Illustration',
-        thumb: 'assets/thumbnails/Anime-frieren.webp',
-        full: 'assets/thumbnails/Anime-frieren.webp',
-        desc: 'Ilustrasi Frieren dalam suasana malam dengan dominasi warna biru dan cahaya bulan. Perpaduan karakter, pepohonan, dan pencahayaan dingin menciptakan atmosfer yang tenang dan misterius, sekaligus memberikan kesan magis pada lingkungan di sekitar karakter.'
-      },
-      {
-        title: 'Oguri Cap Run',
-        category: 'Digital Illustration',
-        thumb: 'assets/thumbnails/Umamusume-Oguri.Cap-hasil-jpg.webp',
-        full: 'assets/thumbnails/Umamusume-Oguri.Cap-hasil-jpg.webp',
-        desc: 'Ilustrasi Oguri Cap dalam adegan berlari yang menonjolkan gerakan dan energi karakter. Pose tubuh, komposisi, serta efek visual dibuat untuk memberikan kesan kecepatan dan dinamika, sehingga karakter terlihat seperti sedang bergerak aktif di dalam sebuah adegan.'
-      },
-      {
-        title: 'Super Saiyan Goku Universe 7',
-        category: 'Digital Illustration',
-        thumb: 'assets/thumbnails/Super-saiyan-Son-goku-(medibang paint).webp',
-        full: 'assets/thumbnails/Super-saiyan-Son-goku-(medibang paint).webp',
-        desc: 'Ilustrasi Super Saiyan Goku dengan pose penuh energi saat mempersiapkan serangan. Efek cahaya biru pada energi di tangannya dipadukan dengan latar luar angkasa bernuansa ungu untuk menciptakan suasana dramatis dan memperkuat kesan kekuatan karakter.'
-      },
-      {
-        title: 'Gojo Satoru Hollow Purple',
-        category: 'Digital Illustration',
-        thumb: 'assets/thumbnails/Gojo-Satoru-Hollow-Purple.webp',
-        full: 'assets/thumbnails/Gojo-Satoru-Hollow-Purple.webp',
-        desc: 'Ilustrasi Gojo Satoru dengan teknik Hollow Purple yang menjadi fokus utama karya. Dominasi warna ungu, efek energi yang terang, serta pencahayaan pada karakter digunakan untuk menciptakan suasana intens dan menonjolkan kekuatan visual dari adegan.'
-      },
-      {
-        title: 'Solo Leveling',
-        category: 'Digital Illustration',
-        thumb: 'assets/thumbnails/Solo-leveling-2.webp',
-        full: 'assets/thumbnails/Solo-leveling-2.webp',
-        desc: 'Ilustrasi karakter dari Solo Leveling dengan suasana gelap dan dramatis. Perpaduan warna hitam, abu-abu, biru, dan merah digunakan untuk menciptakan kontras yang kuat, sementara efek cahaya dan pecahan elemen di sekitar karakter memberikan kesan aksi dan ketegangan.'
-      }
+      { title: 'Goku Energy Burst', category: 'Digital Illustration', thumb: 'assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.jpg', full: 'assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.jpg', desc: 'Ilustrasi Goku dalam pose aksi saat mengeluarkan energi dengan kekuatan penuh.' },
+      { title: 'Oguri Cap Cloud', category: 'Digital Illustration', thumb: 'assets/thumbnails/Oguri Cup background cloud clip.jpg', full: 'assets/thumbnails/Oguri Cup background cloud clip.jpg', desc: 'Ilustrasi Oguri Cap dengan latar langit yang dipenuhi awan dan nuansa warna biru.' },
+      { title: 'Hatsune Miku Beach', category: 'Digital Illustration', thumb: 'assets/thumbnails/Miku Hatsune Beach.jpg', full: 'assets/thumbnails/Miku Hatsune Beach.jpg', desc: 'Ilustrasi Hatsune Miku dengan konsep suasana pantai dan nuansa musim panas.' },
+      { title: 'Super Saiyan Goku', category: 'Digital Illustration', thumb: 'assets/thumbnails/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).jpg', full: 'assets/thumbnails/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).jpg', desc: 'Ilustrasi Goku dalam bentuk Super Saiyan dengan pose yang menunjukkan kekuatan.' },
+      { title: 'Citlali Genshin Impact', category: 'Digital Illustration', thumb: 'assets/thumbnails/Final-Citali-Genshin-impact.jpg', full: 'assets/thumbnails/Final-Citali-Genshin-impact.jpg', desc: 'Ilustrasi Citlali dengan nuansa ungu dan atmosfer fantasi.' },
+      { title: 'Frieren Blue Moon', category: 'Digital Illustration', thumb: 'assets/thumbnails/Anime-frieren (1).jpg', full: 'assets/thumbnails/Anime-frieren (1).jpg', desc: 'Ilustrasi Frieren dalam suasana malam dengan dominasi warna biru dan cahaya bulan.' },
+      { title: 'Oguri Cap Run', category: 'Digital Illustration', thumb: 'assets/thumbnails/Umamusume-Oguri.Cap-hasil-jpg.jpg', full: 'assets/thumbnails/Umamusume-Oguri.Cap-hasil-jpg.jpg', desc: 'Ilustrasi Oguri Cap dalam adegan berlari yang menonjolkan gerakan dan energi karakter.' },
+      { title: 'Super Saiyan Goku Universe 7', category: 'Digital Illustration', thumb: 'assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.jpg', full: 'assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.jpg', desc: 'Ilustrasi Super Saiyan Goku dengan pose penuh energi saat mempersiapkan serangan.' },
+      { title: 'Gojo Satoru Hollow Purple', category: 'Digital Illustration', thumb: 'assets/thumbnails/Gojo-Satoru-Hollow-Purple.webp', full: 'assets/thumbnails/Gojo-Satoru-Hollow-Purple.webp', desc: 'Ilustrasi Gojo Satoru dengan teknik Hollow Purple.' },
+      { title: 'Solo Leveling', category: 'Digital Illustration', thumb: 'assets/thumbnails/Solo-leveling-2.webp', full: 'assets/thumbnails/Solo-leveling-2.webp', desc: 'Ilustrasi karakter dari Solo Leveling dengan suasana gelap dan dramatis.' }
     ];
 
     function buildMarqueeItem(p) {
       const item = document.createElement('div');
-      item.className = 'marquee-card';
-
+      item.className = 'marquee-card relative';
       const img = document.createElement('img');
       img.src = p.thumb;
       img.alt = p.title;
       img.loading = 'lazy';
       img.decoding = 'async';
-      img.fetchPriority = 'low';
       img.draggable = false;
-      img.onerror = function() { this.style.display = 'none'; };
-
       const overlay = document.createElement('div');
       overlay.className = 'marquee-overlay';
       overlay.textContent = 'Detail';
-
       item.appendChild(img);
       item.appendChild(overlay);
       item.addEventListener('click', () => openModal(p.title, p.category, p.full, p.desc));
-
       return item;
     }
 
-    // ---------------------------------------------------------------
-    // Marquee engine: renders the project list twice back-to-back
-    // (so the loop never shows a seam), then drives it with
-    // requestAnimationFrame for a consistently smooth scroll speed
-    // regardless of frame rate. No drag/swipe — clicking a card always
-    // opens its detail directly.
-    // ---------------------------------------------------------------
-    let marqueeOffset = 0;
-    let marqueeTrackWidth = 0;
-    let marqueeHovered = false;
-    let marqueeOffscreen = false;
-    let marqueeLastTime = null;
-    let marqueeVelocity = 0; // current smooth velocity
-    const MARQUEE_SPEED = 42; // pixels per second (target)
-    const MARQUEE_SMOOTH = 3.5; // easing factor (higher = snappier)
+    let marqueeOffset = 0, marqueeTrackWidth = 0, marqueeHovered = false, marqueeOffscreen = false;
+    let marqueeLastTime = null, marqueeVelocity = 0;
 
     function renderMarquee() {
       const track = document.getElementById('portfolioMarquee');
       if (!track) return;
       track.innerHTML = '';
-      const doubled = projects.concat(projects);
-      doubled.forEach(p => track.appendChild(buildMarqueeItem(p)));
+      projects.concat(projects).forEach(p => track.appendChild(buildMarqueeItem(p)));
       measureMarquee();
     }
 
     function measureMarquee() {
       const track = document.getElementById('portfolioMarquee');
-      if (!track) return;
-      marqueeTrackWidth = track.scrollWidth / 2;
-    }
-
-    function applyMarqueeTransform() {
-      const track = document.getElementById('portfolioMarquee');
-      if (!track) return;
-      track.style.transform = `translate3d(${marqueeOffset}px,0,0)`;
+      if (track) marqueeTrackWidth = track.scrollWidth / 2;
     }
 
     function wrapMarqueeOffset() {
@@ -917,43 +705,27 @@
 
     function marqueeTick(time) {
       if (marqueeLastTime === null) marqueeLastTime = time;
-      let dt = (time - marqueeLastTime) / 1000;
+      let dt = Math.min((time - marqueeLastTime) / 1000, 0.1);
       marqueeLastTime = time;
-
-      // Cap delta to prevent huge jumps (e.g. after tab switch or GC)
-      if (dt > 0.1) dt = 0.1;
 
       const shouldAutoplay = !marqueeHovered && !marqueeOffscreen && !document.body.classList.contains('sidebar-open');
 
       if (marqueeTrackWidth > 0) {
-        // Smooth velocity via lerp toward target
-        const targetVelocity = shouldAutoplay ? MARQUEE_SPEED : 0;
-        marqueeVelocity += (targetVelocity - marqueeVelocity) * (1 - Math.exp(-MARQUEE_SMOOTH * dt * 60));
-
-        // Snap to zero when very close to avoid endless crawl
+        const targetVelocity = shouldAutoplay ? 42 : 0;
+        marqueeVelocity += (targetVelocity - marqueeVelocity) * (1 - Math.exp(-3.5 * dt * 60));
         if (Math.abs(marqueeVelocity) < 0.05 && !shouldAutoplay) marqueeVelocity = 0;
-
         marqueeOffset -= marqueeVelocity * dt;
         wrapMarqueeOffset();
-        applyMarqueeTransform();
+        const track = document.getElementById('portfolioMarquee');
+        if (track) track.style.transform = `translate3d(${marqueeOffset}px,0,0)`;
       }
-
       requestAnimationFrame(marqueeTick);
     }
 
-    function setupMarqueeHoverPause() {
-      const track = document.getElementById('portfolioMarquee');
-      if (!track) return;
-      track.addEventListener('mouseenter', () => { marqueeHovered = true; });
-      track.addEventListener('mouseleave', () => { marqueeHovered = false; });
-    }
-
-    // Persona Switcher Logic
     function setPersona(type) {
       const desc = document.getElementById('personaDesc');
       const btnClient = document.getElementById('btnClient');
       const btnRecruiter = document.getElementById('btnRecruiter');
-
       if (type === 'client') {
         desc.innerText = 'Membantu brand dan studio mewujudkan visi visual bernilai tinggi melalui desain grafis modern, karakter ilustrasi presisi, serta konten motion graphics yang memikat audiens.';
         btnClient.className = 'px-3 py-1 rounded-full bg-slate-800 text-purple-300 shadow-sm transition-all';
@@ -965,17 +737,15 @@
       }
     }
 
-    // Modal Display Functions
     function openModal(title, category, imgSrc, description) {
       document.getElementById('modalTitle').innerText = title;
       document.getElementById('modalCategory').innerText = category;
-      document.getElementById('modalImg').src = imgSrc;
-      document.getElementById('modalImg').alt = title;
+      const modalImg = document.getElementById('modalImg');
+      modalImg.src = imgSrc;
+      modalImg.alt = title;
       document.getElementById('modalDescription').innerText = description;
-
-      const modal = document.getElementById('projectModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+      document.getElementById('projectModal').classList.remove('hidden');
+      document.getElementById('projectModal').classList.add('flex');
     }
 
     function closeModal() {
@@ -984,143 +754,64 @@
       modal.classList.remove('flex');
     }
 
-    // Close Modal on backdrop click
-    window.addEventListener('click', function (event) {
-      const modal = document.getElementById('projectModal');
-      if (event.target === modal) {
-        closeModal();
-      }
-    });
-
-    // Close Modal with Escape key
-    window.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') {
-        closeModal();
-        closeSidebar();
-      }
-    });
-
-    // ---------------------------------------------------------------
-    // Mobile Sidebar Navigation
-    // ---------------------------------------------------------------
     function openSidebar() {
       const sidebar = document.getElementById('mobileSidebar');
       const overlay = document.getElementById('sidebarOverlay');
-      const btn = document.getElementById('mobileMenuBtn');
-
       sidebar.classList.remove('translate-x-full');
       sidebar.classList.add('translate-x-0');
-
       overlay.classList.remove('opacity-0', 'pointer-events-none');
       overlay.classList.add('opacity-100', 'pointer-events-auto');
-
       document.body.classList.add('sidebar-open');
-      if (btn) btn.setAttribute('aria-expanded', 'true');
+      document.getElementById('mobileMenuBtn')?.setAttribute('aria-expanded', 'true');
     }
 
     function closeSidebar() {
       const sidebar = document.getElementById('mobileSidebar');
       const overlay = document.getElementById('sidebarOverlay');
-      const btn = document.getElementById('mobileMenuBtn');
-
       sidebar.classList.add('translate-x-full');
       sidebar.classList.remove('translate-x-0');
-
       overlay.classList.add('opacity-0', 'pointer-events-none');
       overlay.classList.remove('opacity-100', 'pointer-events-auto');
-
       document.body.classList.remove('sidebar-open');
-      if (btn) btn.setAttribute('aria-expanded', 'false');
+      document.getElementById('mobileMenuBtn')?.setAttribute('aria-expanded', 'false');
     }
 
-    // Close sidebar automatically if resized up to desktop width
-    window.addEventListener('resize', function () {
-      if (window.innerWidth >= 768) {
-        closeSidebar();
-      }
-    });
+    // Event listeners
+    window.addEventListener('click', (e) => { if (e.target === document.getElementById('projectModal')) closeModal(); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModal(); closeSidebar(); } });
+    window.addEventListener('resize', () => { if (window.innerWidth >= 768) closeSidebar(); });
 
-    // ---------------------------------------------------------------
-    // Lazy-load & lazy-play videos, pause off-screen marquee
-    // ---------------------------------------------------------------
+    // Init
     document.addEventListener('DOMContentLoaded', () => {
       renderMarquee();
-      setupMarqueeHoverPause();
       requestAnimationFrame(marqueeTick);
 
-      // Thumbnails may still shift layout slightly as they finish decoding —
-      // remeasure once everything in the track has loaded, and again on resize.
-      const marqueeTrackEl = document.getElementById('portfolioMarquee');
-      if (marqueeTrackEl) {
-        marqueeTrackEl.querySelectorAll('img').forEach(img => {
-          img.addEventListener('load', measureMarquee, { once: true });
-        });
+      // Intersection Observer untuk marquee pause
+      const track = document.getElementById('portfolioMarquee');
+      if (track && 'IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => { marqueeOffscreen = !entry.isIntersecting; }, { threshold: 0.01 })
+          .observe(track);
       }
-      window.addEventListener('resize', measureMarquee);
 
-      const lazyVideos = document.querySelectorAll("video[loading='lazy']");
-
-      function loadLazyVideo(video) {
-        if (video.dataset.lazyLoaded === 'true') return;
-
-        const sources = video.querySelectorAll('source[data-src]');
-        sources.forEach(source => {
-          source.src = source.dataset.src;
-          source.removeAttribute('data-src');
-        });
-
-        if (video.dataset.src) {
-          video.src = video.dataset.src;
-          video.removeAttribute('data-src');
+      // Lazy load videos
+      document.querySelectorAll('video[loading="lazy"]').forEach(video => {
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const v = entry.target;
+                if (!v.src && v.querySelector('source')) {
+                  v.load();
+                }
+                v.play().catch(() => {});
+              }
+            });
+          }, { rootMargin: '100px' }).observe(video);
+        } else {
+          video.load();
+          video.play().catch(() => {});
         }
-
-        video.dataset.lazyLoaded = 'true';
-        video.load();
-      }
-
-      function playIfNeeded(video) {
-        if (!video.hasAttribute('autoplay')) return;
-        const promise = video.play();
-        if (promise) promise.catch(() => {});
-      }
-
-      if (!('IntersectionObserver' in window)) {
-        lazyVideos.forEach(video => {
-          loadLazyVideo(video);
-          playIfNeeded(video);
-        });
-      } else {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            const video = entry.target;
-
-            if (entry.isIntersecting) {
-              loadLazyVideo(video);
-              playIfNeeded(video);
-              return;
-            }
-
-            // Stop decoding/rendering off-screen autoplay videos.
-            if (video.dataset.lazyLoaded === 'true' && !video.paused) {
-              video.pause();
-            }
-          });
-        }, {
-          rootMargin: '100px 0px',
-          threshold: 0.01
-        });
-
-        lazyVideos.forEach(video => observer.observe(video));
-      }
-
-      // Pause the infinite marquee's autoplay while it is outside the viewport.
-      if (marqueeTrackEl && 'IntersectionObserver' in window) {
-        const marqueeObserver = new IntersectionObserver(([entry]) => {
-          marqueeOffscreen = !entry.isIntersecting;
-        }, { threshold: 0.01 });
-
-        marqueeObserver.observe(marqueeTrackEl);
-      }
+      });
     });
   </script>
 
