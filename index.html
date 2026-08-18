@@ -346,7 +346,7 @@
 
             <div class="absolute -bottom-5 -right-5 sm:-bottom-6 sm:-right-6 z-10 w-24 h-24 sm:w-40 sm:h-40 bg-slate-900 border-4 border-purple-900/60 rounded-full shadow-2xl shadow-purple-900/60 overflow-hidden flex items-center justify-center transform hover:scale-110 transition-transform cursor-pointer group">
               <div class="absolute top-1 right-1 bg-purple-600 text-white text-[7px] font-bold px-1.5 py-0.5 rounded-full z-20 animate-pulse">LIVE</div>
-              <img src="assets/thumbnails/profil.webp" class="w-full h-full object-cover rounded-full shadow-inner" alt="Profile" decoding="async" fetchpriority="high">
+              <img src="assets/Foto deskripsi/thumbnails/profil.webp" class="w-full h-full object-cover rounded-full shadow-inner" alt="Profile" decoding="async" fetchpriority="high">
             </div>
           </div>
         </div>
@@ -649,18 +649,23 @@
   </div>
 
   <script>
-    // Data proyek - dikompres
+    // Data proyek - path disesuaikan dengan struktur folder aslinya:
+    // assets/Foto deskripsi/            -> gambar full/besar
+    // assets/Foto deskripsi/thumbnails/ -> gambar thumbnail (webp)
+    const FULL_BASE = 'assets/Foto deskripsi/';
+    const THUMB_BASE = 'assets/thumbnails/';
+
     const projects = [
-      { title: 'Goku Energy Burst', category: 'Digital Illustration', thumb: 'assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.jpg', full: 'assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.jpg', desc: 'Ilustrasi Goku dalam pose aksi saat mengeluarkan energi dengan kekuatan penuh.' },
-      { title: 'Oguri Cap Cloud', category: 'Digital Illustration', thumb: 'assets/thumbnails/Oguri Cup background cloud clip.jpg', full: 'assets/thumbnails/Oguri Cup background cloud clip.jpg', desc: 'Ilustrasi Oguri Cap dengan latar langit yang dipenuhi awan dan nuansa warna biru.' },
-      { title: 'Hatsune Miku Beach', category: 'Digital Illustration', thumb: 'assets/thumbnails/Miku Hatsune Beach.jpg', full: 'assets/thumbnails/Miku Hatsune Beach.jpg', desc: 'Ilustrasi Hatsune Miku dengan konsep suasana pantai dan nuansa musim panas.' },
-      { title: 'Super Saiyan Goku', category: 'Digital Illustration', thumb: 'assets/thumbnails/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).jpg', full: 'assets/thumbnails/fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).jpg', desc: 'Ilustrasi Goku dalam bentuk Super Saiyan dengan pose yang menunjukkan kekuatan.' },
-      { title: 'Citlali Genshin Impact', category: 'Digital Illustration', thumb: 'assets/thumbnails/Final-Citali-Genshin-impact.jpg', full: 'assets/thumbnails/Final-Citali-Genshin-impact.jpg', desc: 'Ilustrasi Citlali dengan nuansa ungu dan atmosfer fantasi.' },
-      { title: 'Frieren Blue Moon', category: 'Digital Illustration', thumb: 'assets/thumbnails/Anime-frieren (1).jpg', full: 'assets/thumbnails/Anime-frieren (1).jpg', desc: 'Ilustrasi Frieren dalam suasana malam dengan dominasi warna biru dan cahaya bulan.' },
-      { title: 'Oguri Cap Run', category: 'Digital Illustration', thumb: 'assets/thumbnails/Umamusume-Oguri.Cap-hasil-jpg.jpg', full: 'assets/thumbnails/Umamusume-Oguri.Cap-hasil-jpg.jpg', desc: 'Ilustrasi Oguri Cap dalam adegan berlari yang menonjolkan gerakan dan energi karakter.' },
-      { title: 'Super Saiyan Goku Universe 7', category: 'Digital Illustration', thumb: 'assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.jpg', full: 'assets/thumbnails/Super-Saiyan-Blue-Goku-kamehameha.jpg', desc: 'Ilustrasi Super Saiyan Goku dengan pose penuh energi saat mempersiapkan serangan.' },
-      { title: 'Gojo Satoru Hollow Purple', category: 'Digital Illustration', thumb: 'assets/thumbnails/Gojo-Satoru-Hollow-Purple.webp', full: 'assets/thumbnails/Gojo-Satoru-Hollow-Purple.webp', desc: 'Ilustrasi Gojo Satoru dengan teknik Hollow Purple.' },
-      { title: 'Solo Leveling', category: 'Digital Illustration', thumb: 'assets/thumbnails/Solo-leveling-2.webp', full: 'assets/thumbnails/Solo-leveling-2.webp', desc: 'Ilustrasi karakter dari Solo Leveling dengan suasana gelap dan dramatis.' }
+      { title: 'Goku Energy Burst', category: 'Digital Illustration', thumb: THUMB_BASE + 'Super-Saiyan-Blue-Goku-kamehameha.webp', full: FULL_BASE + 'Super-Saiyan-Blue-Goku-kamehameha.jpg', desc: 'Ilustrasi Goku dalam pose aksi saat mengeluarkan energi dengan kekuatan penuh.' },
+      { title: 'Oguri Cap Cloud', category: 'Digital Illustration', thumb: THUMB_BASE + 'Oguri-Cup-background-cloud-clip.webp', full: FULL_BASE + 'Oguri Cup background cloud clip.jpg', desc: 'Ilustrasi Oguri Cap dengan latar langit yang dipenuhi awan dan nuansa warna biru.' },
+      { title: 'Hatsune Miku Beach', category: 'Digital Illustration', thumb: THUMB_BASE + 'Miku-Hatsune-Beach.webp', full: FULL_BASE + 'Miku Hatsune Beach.jpg', desc: 'Ilustrasi Hatsune Miku dengan konsep suasana pantai dan nuansa musim panas.' },
+      { title: 'Super Saiyan Goku', category: 'Digital Illustration', thumb: THUMB_BASE + 'fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).webp', full: FULL_BASE + 'fly-Super-saiyan-Son-Goku-new-color-(medibang-paint).jpg', desc: 'Ilustrasi Goku dalam bentuk Super Saiyan dengan pose yang menunjukkan kekuatan.' },
+      { title: 'Citlali Genshin Impact', category: 'Digital Illustration', thumb: THUMB_BASE + 'Final-Citali-Genshin-impact.webp', full: FULL_BASE + 'Final-Citali-Genshin-impact.jpg', desc: 'Ilustrasi Citlali dengan nuansa ungu dan atmosfer fantasi.' },
+      { title: 'Frieren Blue Moon', category: 'Digital Illustration', thumb: THUMB_BASE + 'Anime-frieren.webp', full: FULL_BASE + 'Anime-frieren (1).jpg', desc: 'Ilustrasi Frieren dalam suasana malam dengan dominasi warna biru dan cahaya bulan.' },
+      { title: 'Oguri Cap Run', category: 'Digital Illustration', thumb: THUMB_BASE + 'Umamusume-Oguri.Cap-hasil-jpg.webp', full: FULL_BASE + 'Umamusume-Oguri.Cap-hasil-jpg.jpg', desc: 'Ilustrasi Oguri Cap dalam adegan berlari yang menonjolkan gerakan dan energi karakter.' },
+      { title: 'Super Saiyan Goku Universe 7', category: 'Digital Illustration', thumb: THUMB_BASE + 'Super-saiyan-Son-goku-(medibang paint).webp', full: FULL_BASE + 'Super-saiyan-Son-goku-(medibang paint).webp', desc: 'Ilustrasi Super Saiyan Goku dengan pose penuh energi saat mempersiapkan serangan.' },
+      { title: 'Gojo Satoru Hollow Purple', category: 'Digital Illustration', thumb: THUMB_BASE + 'Gojo-Satoru-Hollow-Purple.webp', full: FULL_BASE + 'Gojo-Satoru-Hollow-Purple.webp', desc: 'Ilustrasi Gojo Satoru dengan teknik Hollow Purple.' },
+      { title: 'Solo Leveling', category: 'Digital Illustration', thumb: THUMB_BASE + 'Solo-leveling-2.webp', full: FULL_BASE + 'Solo-leveling-2.webp', desc: 'Ilustrasi karakter dari Solo Leveling dengan suasana gelap dan dramatis.' }
     ];
 
     function buildMarqueeItem(p) {
